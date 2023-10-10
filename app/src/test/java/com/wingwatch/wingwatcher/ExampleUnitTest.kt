@@ -1,4 +1,4 @@
-package com.example.wingwatcher
+package com.wingwatch.wingwatcher
 
 import org.junit.Test
 

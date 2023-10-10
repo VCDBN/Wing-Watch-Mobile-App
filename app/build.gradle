@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.wingwatcher'
+    namespace 'com.wingwatch.wingwatcher'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.wingwatcher"
+        applicationId "com.wingwatch.wingwatcher"
         minSdk 25
         targetSdk 33
         versionCode 1
