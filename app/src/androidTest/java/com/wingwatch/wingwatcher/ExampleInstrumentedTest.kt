@@ -1,4 +1,4 @@
-package com.example.wingwatcher
+package com.wingwatch.wingwatcher
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

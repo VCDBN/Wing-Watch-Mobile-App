@@ -1,4 +1,4 @@
-package com.example.wingwatcher
+package com.wingwatch.wingwatcher
 
 import java.text.SimpleDateFormat
 import java.util.*

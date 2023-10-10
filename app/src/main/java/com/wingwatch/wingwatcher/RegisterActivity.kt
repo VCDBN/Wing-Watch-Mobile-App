@@ -1,4 +1,4 @@
-package com.example.wingwatcher
+package com.wingwatch.wingwatcher
 
 import android.content.Intent
 import com.google.firebase.auth.FirebaseAuth
