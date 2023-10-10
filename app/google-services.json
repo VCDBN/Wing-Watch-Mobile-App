@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "607242801022",
+    "firebase_url": "https://wingwatcher1-501fb-default-rtdb.firebaseio.com",
+    "project_id": "wingwatcher1-501fb",
+    "storage_bucket": "wingwatcher1-501fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607242801022:android:d93f9f00dd80a16d8b6d2f",
+        "android_client_info": {
+          "package_name": "com.example.wingwatcher"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn_rkS_SJKYmBeBfO4FTT8gb8mirrldzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607242801022:android:1cac1eef81dbe26f8b6d2f",
+        "android_client_info": {
+          "package_name": "com.example.wingwatcher1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn_rkS_SJKYmBeBfO4FTT8gb8mirrldzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
