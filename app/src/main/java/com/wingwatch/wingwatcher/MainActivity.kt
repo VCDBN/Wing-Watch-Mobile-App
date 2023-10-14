@@ -3,7 +3,12 @@ package com.wingwatch.wingwatcher
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.TextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +20,29 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+        val ebirdCompositeDisposable = CompositeDisposable()
+
+
+        fun fetchDataFromeBirdApi() {
+            val disposable = eBirdApiClient.buildService().getData(10)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    var data = ""
+                    response.forEach(){
+                        data  += it.toString()
+                    }
+                    Log.d("Response",data)
+                }, { error ->
+
+                    Log.e("Bad Req", error.message.toString())
+                })
+            ebirdCompositeDisposable.add(disposable)
+        }
+
+        fetchDataFromeBirdApi()
+
+
 
     }
 }
