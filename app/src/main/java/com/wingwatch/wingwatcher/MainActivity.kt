@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.mapbox.geojson.Point
+import com.wingwatch.wingwatcher.GlobalList.coords
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -27,11 +29,8 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    var data = ""
-                    response.forEach(){
-                        data  += it.toString()
-                    }
-                    Log.d("Response",data)
+                    GetPoints(response)
+
                 }, { error ->
 
                     Log.e("Bad Req", error.message.toString())
@@ -49,4 +48,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private fun GetPoints(list : List<Species>)
+    {
+
+        list.forEach(){
+            coords.add(HotSpot(it.lng,it.lat))
+        }
+
+
+    }
+
 }

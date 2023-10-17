@@ -28,6 +28,7 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.wingwatch.wingwatcher.GlobalList.coords
 import java.lang.ref.WeakReference
 
 
@@ -81,7 +82,10 @@ class MapActivity : AppCompatActivity() {
         ) {
             initLocationComponent()
             setupGesturesListener()
-            addAnnotationToMap(31.035164,-29.794965)
+            for (point in coords) {
+                addAnnotationToMap(point.lon,point.lat)
+
+            }
         }
     }
 
@@ -147,8 +151,8 @@ class MapActivity : AppCompatActivity() {
         locationPermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    private fun addAnnotationToMap(lon : Double, lat : Double) {
-// Create an instance of the Annotation API and get the PointAnnotationManager.
+    private fun addAnnotationToMap(lon : Double?, lat : Double?) {
+
         bitmapFromDrawableRes(
             this@MapActivity,
             R.drawable.red_marker
@@ -158,7 +162,7 @@ class MapActivity : AppCompatActivity() {
 
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
 
-                .withPoint(Point.fromLngLat(lon, lat))
+                .withPoint(Point.fromLngLat(lon!!, lat!!))
 
                 .withIconImage(it)
 
