@@ -1,11 +1,10 @@
 package com.wingwatch.wingwatcher
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -43,6 +42,11 @@ class MainActivity : AppCompatActivity() {
         fetchDataFromeBirdApi()
 
 
+        val btnMap = findViewById<Button>(R.id.btnMap)
 
+        btnMap.setOnClickListener(){
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
