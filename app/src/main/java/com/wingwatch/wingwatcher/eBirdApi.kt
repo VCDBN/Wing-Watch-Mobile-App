@@ -7,7 +7,8 @@ import retrofit2.http.Query
 
 interface eBirdApi {
     @Headers("X-eBirdApiToken: 1rkphdg8mrs6")
-    @GET("notable")
-    fun getData(@Query("maxResults") maxResults : Number)
-    : Observable<List<Species>>
+    @GET("recent")
+    fun getData(@Query("maxResults") maxResults : Number,
+                @Query("lat") lat : Double,
+                @Query("lng") lng : Double): Observable<List<Species>>
 }

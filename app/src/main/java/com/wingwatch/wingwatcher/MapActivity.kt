@@ -30,8 +30,6 @@ import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
 import java.lang.ref.WeakReference
 
 
-var mapView: MapView? = null
-
 
 class MapActivity : AppCompatActivity() {
 
@@ -45,7 +43,7 @@ class MapActivity : AppCompatActivity() {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().center(it).build())
         mapView.gestures.focalPoint = mapView.getMapboxMap().pixelForCoordinate(it)
         currentPosition = Postion(it.longitude(),it.latitude())
-        Log.i("curr pos", currentPosition.toString())
+
     }
 
     private val onMoveListener = object : OnMoveListener {

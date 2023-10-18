@@ -24,11 +24,11 @@ class MainActivity : AppCompatActivity() {
 
 
         fun fetchDataFromeBirdApi() {
-            val disposable = eBirdApiClient.buildService().getData(10)
+            val disposable = eBirdApiClient.buildService().getData(100,-29.7968864,31.0341148)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    GetPoints(response)
+                   getPoints(response)
 
                 }, { error ->
 
@@ -48,11 +48,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun GetPoints(list : List<Species>)
+    private fun getPoints(list : List<Species>)
     {
 
         list.forEach(){
             coords.add(HotSpot(it.lng,it.lat))
+
         }
 
 
