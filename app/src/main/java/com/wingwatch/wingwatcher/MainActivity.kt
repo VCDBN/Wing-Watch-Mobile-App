@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
         }
+
+        val yes = Routing()
+        yes.getDirections()
     }
 
     private fun getPoints(list : List<Species>)
