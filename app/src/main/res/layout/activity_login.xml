@@ -20,37 +20,22 @@
             android:id="@+id/imgLogo"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:contentDescription="WingWatcher"
+            android:contentDescription="WingWatch"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/wingwatcher_logo" />
 
         <TextView
             android:id="@+id/tvLoginWingWatcher"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="log into"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:text="log into WingWatch"
             android:textAlignment="center"
             android:textSize="33sp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toStartOf="@+id/tvWingWatcher"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
-
-        <TextView
-            android:id="@+id/tvWingWatcher"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="40dp"
-            android:text="WingWatcher"
-            android:textAlignment="center"
-            android:textSize="29sp"
-            android:fontFamily="@font/spacemono_bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvLoginWingWatcher"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -145,7 +130,7 @@
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/sourcesanspro_bold"
             android:text="Register"
-            android:textColor="@color/blue_cv_fresher"
+            android:textColor="@color/blue_wing_watch"
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/lytLoginPassword"
