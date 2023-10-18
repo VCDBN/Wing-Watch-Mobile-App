@@ -1,23 +1,20 @@
 package com.wingwatch.wingwatcher
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
-import com.mapbox.maps.Style
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.plugin.LocationPuck2D
 import com.mapbox.maps.plugin.annotation.annotations
@@ -28,7 +25,8 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
-import com.wingwatch.wingwatcher.GlobalList.coords
+import com.wingwatch.wingwatcher.GlobalVariables.coords
+import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
 import java.lang.ref.WeakReference
 
 
@@ -46,6 +44,8 @@ class MapActivity : AppCompatActivity() {
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().center(it).build())
         mapView.gestures.focalPoint = mapView.getMapboxMap().pixelForCoordinate(it)
+        currentPosition = Postion(it.longitude(),it.latitude())
+        Log.i("curr pos", currentPosition.toString())
     }
 
     private val onMoveListener = object : OnMoveListener {
@@ -78,14 +78,15 @@ class MapActivity : AppCompatActivity() {
                 .build()
         )
         mapView.getMapboxMap().loadStyleUri(
-            Style.MAPBOX_STREETS
+            "mapbox://styles/papilo1/clnvnyemc002101qs2r8011sv"
         ) {
             initLocationComponent()
             setupGesturesListener()
             for (point in coords) {
                 addAnnotationToMap(point.lon,point.lat)
-
             }
+
+            mapView.location
         }
     }
 
