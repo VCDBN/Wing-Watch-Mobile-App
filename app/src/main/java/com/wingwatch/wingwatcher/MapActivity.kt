@@ -18,8 +18,7 @@ import com.mapbox.maps.MapView
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.plugin.LocationPuck2D
 import com.mapbox.maps.plugin.annotation.annotations
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
-import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import com.mapbox.maps.plugin.annotation.generated.*
 import com.mapbox.maps.plugin.gestures.OnMoveListener
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
@@ -29,8 +28,6 @@ import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
 import java.lang.ref.WeakReference
 
-
-var mapView: MapView? = null
 
 
 class MapActivity : AppCompatActivity() {
@@ -45,7 +42,7 @@ class MapActivity : AppCompatActivity() {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().center(it).build())
         mapView.gestures.focalPoint = mapView.getMapboxMap().pixelForCoordinate(it)
         currentPosition = Postion(it.longitude(),it.latitude())
-        Log.i("curr pos", currentPosition.toString())
+
     }
 
     private val onMoveListener = object : OnMoveListener {
@@ -161,13 +158,21 @@ class MapActivity : AppCompatActivity() {
             val annotationApi = mapView?.annotations
             val pointAnnotationManager = annotationApi?.createPointAnnotationManager(mapView!!)
 
+            pointAnnotationManager?.addClickListener(object : OnPointAnnotationClickListener {
+                override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
+                    Log.i("clicked", "$lon,$lat")
+                    return true
+                }
+            })
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
 
                 .withPoint(Point.fromLngLat(lon!!, lat!!))
 
                 .withIconImage(it)
 
-            pointAnnotationManager?.create(pointAnnotationOptions)
+                pointAnnotationManager?.create(pointAnnotationOptions)
+
+
         }
     }
 
@@ -195,6 +200,8 @@ class MapActivity : AppCompatActivity() {
     }
 
 }
+
+
 
 
 
