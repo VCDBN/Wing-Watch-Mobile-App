@@ -161,6 +161,7 @@ class MapActivity : AppCompatActivity() {
             pointAnnotationManager?.addClickListener(object : OnPointAnnotationClickListener {
                 override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
                     Log.i("clicked", "$lon,$lat")
+
                     return true
                 }
             })
