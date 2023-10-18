@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object eBirdApiClient {
 
-    private const val BASE_URL = "https://api.ebird.org/v2/data/obs/ZA/recent/"
+    private const val BASE_URL = "https://api.ebird.org/v2/data/obs/geo/"
 
 
     private val client = OkHttpClient()
