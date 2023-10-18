@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">WingWatcher</string>
     <string name="mapbox_access_token">pk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG51ZWF2N24wYWppMmtxY2x1aHhkd2tiIn0.qPvXR4nM0b9cwDoMeu9r3Q</string>
+    <string name="apply">Apply</string>
+    <string name="search_radius">Search Radius</string>
 </resources>

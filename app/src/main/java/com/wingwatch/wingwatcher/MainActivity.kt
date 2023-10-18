@@ -15,11 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnGoReg = findViewById<Button>(R.id.btnGoRegister)
-        btnGoReg.setOnClickListener(){
-            val intent = Intent(this, RegisterActivity::class.java)
+        val btnSettings = findViewById<Button>(R.id.btnSettings)
+        btnSettings.setOnClickListener(){
+            val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
+
         val ebirdCompositeDisposable = CompositeDisposable()
 
 
@@ -45,6 +46,12 @@ class MainActivity : AppCompatActivity() {
         btnMap.setOnClickListener(){
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
+        }
+
+        val btnExit = findViewById<Button>(R.id.btnExit)
+
+        btnExit.setOnClickListener(){
+            finishAffinity()
         }
     }
 
