@@ -43,6 +43,7 @@ import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListen
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
+import com.wingwatch.wingwatcher.GlobalVariables.fetchDataFromeBirdApi
 import com.wingwatch.wingwatcher.GlobalVariables.observations
 import retrofit2.Call
 import retrofit2.Callback
@@ -61,8 +62,9 @@ class MapActivity : AppCompatActivity() {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().center(it).build())
         mapView.gestures.focalPoint = mapView.getMapboxMap().pixelForCoordinate(it)
         currentPosition = Postion(it.longitude(),it.latitude())
+        fetchDataFromeBirdApi()
 
-    }
+        }
 
     private val onMoveListener = object : OnMoveListener {
         override fun onMoveBegin(detector: MoveGestureDetector) {
