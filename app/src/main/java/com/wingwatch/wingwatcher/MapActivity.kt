@@ -8,10 +8,14 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.api.directions.v5.MapboxDirections
@@ -44,15 +48,21 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.viewannotation.ViewAnnotationManager
+import com.mapbox.maps.viewannotation.viewAnnotationOptions
 
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
 import com.wingwatch.wingwatcher.GlobalVariables.directions
+import com.wingwatch.wingwatcher.GlobalVariables.observations
+import com.wingwatch.wingwatcher.databinding.ActivityMainBinding
+import com.wingwatch.wingwatcher.databinding.AnnotationViewBinding
 import java.lang.ref.WeakReference
 
 
 class MapActivity : AppCompatActivity() {
     private val ROUTE_SOURCE_ID = "route-source-id"
+
 
     private val ROUTE_LAYER_ID = "route-layer-id"
     private lateinit var locationPermissionHelper: LocationPermissionHelper
@@ -80,13 +90,19 @@ class MapActivity : AppCompatActivity() {
     }
     private lateinit var mapView: MapView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapView = MapView(this)
         setContentView(mapView)
+
+
+
+
         locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
         locationPermissionHelper.checkPermissions {
             onMapReady()
+
         }
 
 
@@ -109,10 +125,14 @@ class MapActivity : AppCompatActivity() {
                 addAnnotationToMap(point.lon,point.lat)
             }
 
+            for(bird in observations){
+                addObservationToMap(bird.lng,bird.lat)
+            }
+
             mapView.location
 
-        addGeoJsonSource(it)
-            addLineLayer(it)
+        //addGeoJsonSource(it)
+            //addLineLayer(it)
 //
 //            val directionsRouteFeature = Feature.fromGeometry(LineString.fromPolyline(
 //                directions.routes[0].geometry!!, PRECISION_6))
@@ -120,6 +140,7 @@ class MapActivity : AppCompatActivity() {
 //            initLayers
 
         }
+
     }
     private fun addGeoJsonSource(style: Style) {
         val routing = Routing()
@@ -168,16 +189,6 @@ class MapActivity : AppCompatActivity() {
 //            mapboxMap.addPolyline(polylineOptions)
 //        }
 //    }
-    private fun initLayers(loadedMapStyle: Style) {
-        val routeLayer = LineLayer(ROUTE_LAYER_ID, ROUTE_SOURCE_ID)
-
-        // Add the LineLayer to the map. This layer will display the directions route.
-        routeLayer.lineCap(LineCap.ROUND)
-        routeLayer.lineJoin(LineJoin.ROUND)
-        routeLayer.lineWidth(5.0)
-        routeLayer.lineColor(ColorUtils.colorToRgbaString(Color.parseColor("#009688")))
-        loadedMapStyle.addLayer(routeLayer)
-    }
 
     private fun setupGesturesListener() {
         mapView.gestures.addOnMoveListener(onMoveListener)
@@ -253,11 +264,10 @@ class MapActivity : AppCompatActivity() {
             pointAnnotationManager?.addClickListener(object : OnPointAnnotationClickListener {
                 override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
                     Log.i("clicked", "$lon,$lat")
-                    val routing = Routing()
-                    routing.getDirections()
 
-                    val directionsRouteFeature = Feature.fromGeometry(LineString.fromPolyline(
-                        directions[0].routes[0].geometry!!, PRECISION_6))
+                    val point = Point.fromLngLat(lon!!,lat!!)
+                    val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+                    //mapView.addView(customView,point,layoutParams)
 
                     return true
                 }
@@ -269,6 +279,38 @@ class MapActivity : AppCompatActivity() {
                 .withIconImage(it)
 
                 pointAnnotationManager?.create(pointAnnotationOptions)
+
+
+        }
+    }
+
+    private fun addObservationToMap(lon : Double?, lat : Double?) {
+
+        bitmapFromDrawableRes(
+            this@MapActivity,
+            R.drawable.blue_marker
+        )?.let {
+            val annotationApi = mapView?.annotations
+            val pointAnnotationManager = annotationApi?.createPointAnnotationManager(mapView!!)
+
+            pointAnnotationManager?.addClickListener(object : OnPointAnnotationClickListener {
+                override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
+                    Log.i("clicked", "$lon,$lat")
+
+                    //val point = Point.fromLngLat(lon!!,lat!!)
+                    //val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+                    //mapView.addView(customView,point,layoutParams)
+
+                    return true
+                }
+            })
+            val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
+
+                .withPoint(Point.fromLngLat(lon!!, lat!!))
+
+                .withIconImage(it)
+
+            pointAnnotationManager?.create(pointAnnotationOptions)
 
 
         }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.wingwatch.wingwatcher.GlobalVariables.coords
+import com.wingwatch.wingwatcher.GlobalVariables.radius
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
 
         fun fetchDataFromeBirdApi() {
-            val disposable = eBirdApiClient.buildService().getData(100,-29.7968864,31.0341148)
+            val disposable = eBirdApiClient.buildService().getData(100,-29.7968864,31.0341148,radius)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
@@ -58,11 +59,17 @@ class MainActivity : AppCompatActivity() {
             finishAffinity()
         }
 
+        val btnAddObs = findViewById<Button>(R.id.btnAddObs)
+        btnAddObs.setOnClickListener(){
+            val intent = Intent(this, AddObsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun getPoints(list : List<Species>)
     {
-
+        coords.clear()
         list.forEach(){
             coords.add(HotSpot(it.lng,it.lat))
 

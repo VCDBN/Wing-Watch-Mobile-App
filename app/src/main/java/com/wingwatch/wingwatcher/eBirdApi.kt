@@ -10,5 +10,7 @@ interface eBirdApi {
     @GET("recent")
     fun getData(@Query("maxResults") maxResults : Number,
                 @Query("lat") lat : Double,
-                @Query("lng") lng : Double): Observable<List<Species>>
+                @Query("lng") lng : Double,
+                @Query("dist") dist : Double)
+    : Observable<List<Species>>
 }

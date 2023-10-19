@@ -19,4 +19,10 @@ data class Species(
     @SerializedName("subId"           ) var subId           : String?  = null
 )
 
+data class Bird(var comName: String?,
+                var howMany: Int?,
+                var lng             : Double?,
+                var lat             : Double?
+)
+
 
