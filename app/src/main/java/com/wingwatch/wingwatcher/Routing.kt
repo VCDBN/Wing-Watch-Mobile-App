@@ -16,22 +16,22 @@ import io.reactivex.schedulers.Schedulers
 class Routing {
     val origin = "31.0377502,-29.8102634"
     val destination = "31.0341148,-29.7968864"
-    fun getDirections()
-    {
-        val directionsCompositeDisposable = CompositeDisposable()
-
-        val disposable = DirectionsClient.buildService(origin,destination).getData("$origin;$destination","sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG51ZWdubGkwZGw4MnducHB3cHBtN2JwIn0.l0Ouw48vwhFyUNDfMMLZiw")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
-                directions.add(response)
-            }, { error ->
-
-                Log.e("Bad Req", error.message.toString())
-            })
-
-
-        directionsCompositeDisposable.add(disposable)
-
-    }
+   // fun getDirections()
+//    {
+//        val directionsCompositeDisposable = CompositeDisposable()
+//
+//        val disposable = DirectionsClient.buildService(origin,destination).getData("$origin;$destination","sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG51ZWdubGkwZGw4MnducHB3cHBtN2JwIn0.l0Ouw48vwhFyUNDfMMLZiw")
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ response ->
+//                directions.add(response)
+//            }, { error ->
+//
+//                Log.e("Bad Req", error.message.toString())
+//            })
+//
+//
+//        directionsCompositeDisposable.add(disposable)
+//
+//    }
 }
