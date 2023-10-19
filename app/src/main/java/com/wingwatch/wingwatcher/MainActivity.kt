@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val yes = Routing()
-        yes.getDirections()
+//        val yes = Routing()
+//        yes.getDirections()
 
         val btnExit = findViewById<Button>(R.id.btnExit)
 

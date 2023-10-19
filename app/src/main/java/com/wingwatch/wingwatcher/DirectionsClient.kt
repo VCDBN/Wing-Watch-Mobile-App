@@ -15,16 +15,13 @@ object DirectionsClient {
         .newBuilder()
         .build()
 
-    private val retrofit =
+     val retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(client)
             .build()
-            .create(DirectionsApi::class.java)
 
-    fun buildService(origin: String, destination: String): DirectionsApi {
+    fun buildService(origin: String, destination: String): Retrofit {
         val coordinates = "$origin;$destination"
         return retrofit
     }

@@ -50,3 +50,18 @@ data class Directions (
     @SerializedName("uuid"      ) var uuid      : String?              = null
 
 )
+
+data class RouteCustomResponse (
+    @SerializedName("routes") val routes: List<CustomRoute>,
+    @SerializedName("code"      ) var code : String? = null,
+    @SerializedName("uuid"      ) var uuid : String? = null
+)
+
+data class CustomRoute (
+    @SerializedName("geometry") val geometry: CustomGeometry
+)
+
+data class CustomGeometry (
+    @SerializedName("coordinates") val coordinates: List<List<Double>>,
+    @SerializedName("type") val type: String
+)
