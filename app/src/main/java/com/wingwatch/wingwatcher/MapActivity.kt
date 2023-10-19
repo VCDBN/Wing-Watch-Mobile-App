@@ -49,7 +49,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.ref.WeakReference
 
-
+//----------------------------------------------CODE ATTRIBUTION----------------------------------------------
+//Title : Display the user's location activity documentation
+//Author: "Mapbox"
+//URL: "https://docs.mapbox.com/android/maps/examples/location-tracking/"
 class MapActivity : AppCompatActivity() {
 
     private lateinit var locationPermissionHelper: LocationPermissionHelper
@@ -179,6 +182,10 @@ class MapActivity : AppCompatActivity() {
         locationPermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    //----------------------------------------------CODE ATTRIBUTION----------------------------------------------
+//Title : Annotation documentation
+//Author: "Mapbox"
+//URL: "https://docs.mapbox.com/android/maps/guides/annotations/annotations/"
     private fun addAnnotationToMap(lon : Double?, lat : Double?) {
 
         bitmapFromDrawableRes(
