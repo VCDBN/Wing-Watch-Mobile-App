@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
-import com.wingwatch.wingwatcher.GlobalVariables.fetchDataFromeBirdApi
 import com.wingwatch.wingwatcher.GlobalVariables.radius
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -56,6 +55,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val ebirdCompositeDisposable = CompositeDisposable()
+
+        fun fetchDataFromeBirdApi() {
+
+            val disposable = eBirdApiClient.buildService().getData(100, currentPosition.lat,
+                currentPosition.lon,radius)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+
+                    getPoints(response)
+
+                }, { error ->
+
+                    Log.e("Bad Req", error.message.toString())
+                })
+            ebirdCompositeDisposable.add(disposable)
+        }
+
         fetchDataFromeBirdApi()
 
 
@@ -81,6 +99,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    private fun getPoints(list : List<Species>)
+    {
+        coords.clear()
+        list.forEach(){
+            coords.add(HotSpot(it.lng,it.lat))
+        }
+    }
 
 }

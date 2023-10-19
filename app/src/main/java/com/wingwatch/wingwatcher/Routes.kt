@@ -42,26 +42,18 @@ data class Admins (
 
 )
 
-data class Directions (
 
-    @SerializedName("routes"    ) var routes    : ArrayList<Routes>    = arrayListOf(),
-    @SerializedName("waypoints" ) var waypoints : ArrayList<Waypoints> = arrayListOf(),
-    @SerializedName("code"      ) var code      : String?              = null,
-    @SerializedName("uuid"      ) var uuid      : String?              = null
-
-)
-
-data class RouteCustomResponse (
-    @SerializedName("routes") val routes: List<CustomRoute>,
+data class DirectionsResponse (
+    @SerializedName("routes") val routes: List<RouteGeometry>,
     @SerializedName("code"      ) var code : String? = null,
     @SerializedName("uuid"      ) var uuid : String? = null
 )
 
-data class CustomRoute (
-    @SerializedName("geometry") val geometry: CustomGeometry
+data class RouteGeometry (
+    @SerializedName("geometry") val geometry: Geometry
 )
 
-data class CustomGeometry (
+data class Geometry (
     @SerializedName("coordinates") val coordinates: List<List<Double>>,
     @SerializedName("type") val type: String
 )

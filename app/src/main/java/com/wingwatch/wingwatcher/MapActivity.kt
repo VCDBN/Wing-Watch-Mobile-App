@@ -43,7 +43,6 @@ import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListen
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
-import com.wingwatch.wingwatcher.GlobalVariables.fetchDataFromeBirdApi
 import com.wingwatch.wingwatcher.GlobalVariables.observations
 import retrofit2.Call
 import retrofit2.Callback
@@ -62,9 +61,7 @@ class MapActivity : AppCompatActivity() {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().center(it).build())
         mapView.gestures.focalPoint = mapView.getMapboxMap().pixelForCoordinate(it)
         currentPosition = Postion(it.longitude(),it.latitude())
-        fetchDataFromeBirdApi()
-
-        }
+    }
 
     private val onMoveListener = object : OnMoveListener {
         override fun onMoveBegin(detector: MoveGestureDetector) {
@@ -83,7 +80,6 @@ class MapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val accessToken = getString(R.string.mapbox_access_token)
         val resourceOptions = ResourceOptions.Builder()
             .accessToken(accessToken)
@@ -95,12 +91,7 @@ class MapActivity : AppCompatActivity() {
         locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
         locationPermissionHelper.checkPermissions {
             onMapReady()
-
         }
-
-
-
-
     }
 
     private fun onMapReady() {
@@ -123,13 +114,8 @@ class MapActivity : AppCompatActivity() {
             }
             mapStyle = it
             mapView.location
-
-
-
         }
-
     }
-
 
     private fun setupGesturesListener() {
         mapView.gestures.addOnMoveListener(onMoveListener)
@@ -220,13 +206,13 @@ class MapActivity : AppCompatActivity() {
                         overview = "full",
                         access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
 
-                    apiCall.enqueue(object : Callback<RouteCustomResponse> {
+                    apiCall.enqueue(object : Callback<DirectionsResponse> {
                         override fun onResponse (
-                            call: Call<RouteCustomResponse>,
-                            response: Response<RouteCustomResponse>
+                            call: Call<DirectionsResponse>,
+                            response: Response<DirectionsResponse>
                         ) {
                             if (response.isSuccessful) {
-                                val route: CustomRoute? = response.body()?.routes?.firstOrNull()
+                                val route: RouteGeometry? = response.body()?.routes?.firstOrNull()
                                 if (route != null) {
 
                                     val coordinates = route.geometry.coordinates.map { Point.fromLngLat(it[0], it[1]) }
@@ -262,7 +248,7 @@ class MapActivity : AppCompatActivity() {
                             }
                         }
 
-                        override fun onFailure(call: Call<RouteCustomResponse>, t: Throwable) {
+                        override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
                             Log.e("API error", "Network error: ${t.message}", t)
                         }
                     })
@@ -309,13 +295,13 @@ class MapActivity : AppCompatActivity() {
                         overview = "full",
                         access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
 
-                    apiCall.enqueue(object : Callback<RouteCustomResponse> {
+                    apiCall.enqueue(object : Callback<DirectionsResponse> {
                         override fun onResponse (
-                            call: Call<RouteCustomResponse>,
-                            response: Response<RouteCustomResponse>
+                            call: Call<DirectionsResponse>,
+                            response: Response<DirectionsResponse>
                         ) {
                             if (response.isSuccessful) {
-                                val route: CustomRoute? = response.body()?.routes?.firstOrNull()
+                                val route: RouteGeometry? = response.body()?.routes?.firstOrNull()
                                 if (route != null) {
 
                                     val coordinates = route.geometry.coordinates.map { Point.fromLngLat(it[0], it[1]) }
@@ -351,7 +337,7 @@ class MapActivity : AppCompatActivity() {
                             }
                         }
 
-                        override fun onFailure(call: Call<RouteCustomResponse>, t: Throwable) {
+                        override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
                             Log.e("API error", "Network error: ${t.message}", t)
                         }
                     })
