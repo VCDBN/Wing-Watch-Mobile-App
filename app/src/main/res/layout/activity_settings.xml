@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:id="@+id/tvSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:textColor="@color/blue_wing_watch"
+        android:text="Settings"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switchUnitType"
+        android:layout_width="wrap_content"
+        android:thumbTint="@color/blue_wing_watch"
+        android:layout_height="50dp"
+        android:textSize="25sp"
+        android:layout_marginTop="60dp"
+        android:checked="true"
+        android:text="Metric"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSettings"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <TextView
+        android:id="@+id/tvRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_radius"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/npRadius"
+        app:layout_constraintEnd_toStartOf="@+id/npRadius"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/npRadius" />
+
+    <NumberPicker
+        android:id="@+id/npRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:gravity="center"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvRadius"
+        app:layout_constraintTop_toBottomOf="@+id/switchUnitType" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnApplySettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/apply"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:background="@drawable/active_button"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/npRadius" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

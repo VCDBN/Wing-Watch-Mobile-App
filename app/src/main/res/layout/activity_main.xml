@@ -4,26 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="40dp"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnGoRegister"
+    <TextView
+        android:id="@+id/tvMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:text="Menu"
+        android:textColor="@color/blue_wing_watch"
+        android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginBottom="140dp"
         android:id="@+id/btnMap"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/active_button"
+        android:drawableStart="@drawable/baseline_map_24"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
         android:text="Map"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnExit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGoRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMenu"
+        app:layout_constraintVertical_bias="0.529"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSettings"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/active_button"
+        android:drawableStart="@drawable/baseline_settings_24"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:text="Settings"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnExit"
+        app:layout_constraintEnd_toEndOf="@+id/btnMap"
+        app:layout_constraintStart_toStartOf="@+id/btnMap"
+        app:layout_constraintTop_toBottomOf="@+id/btnMap" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnExit"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/active_button"
+        android:drawableStart="@drawable/baseline_settings_24"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:text="Exit"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnSettings"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/btnSettings"
+        app:layout_constraintTop_toBottomOf="@+id/btnMap" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
