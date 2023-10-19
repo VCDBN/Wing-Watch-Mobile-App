@@ -51,10 +51,7 @@ import java.lang.ref.WeakReference
 
 
 class MapActivity : AppCompatActivity() {
-    private val ROUTE_SOURCE_ID = "route-source-id"
 
-
-    private val ROUTE_LAYER_ID = "route-layer-id"
     private lateinit var locationPermissionHelper: LocationPermissionHelper
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
