@@ -1,5 +1,6 @@
 package com.wingwatch.wingwatcher
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.NumberPicker
@@ -55,6 +56,9 @@ class SettingsActivity : AppCompatActivity() {
                     //converting mile selection to kilometer
                     npRadius.value * 1.609
                 }
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }
