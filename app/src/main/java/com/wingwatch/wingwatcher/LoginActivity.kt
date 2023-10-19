@@ -1,11 +1,10 @@
 package com.wingwatch.wingwatcher
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -57,14 +56,5 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Missing Fields", Toast.LENGTH_SHORT).show()
             }
         }
-
-        val button = findViewById<Button>(R.id.button)
-
-        button.setOnClickListener(){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
     }
-
-
 }
