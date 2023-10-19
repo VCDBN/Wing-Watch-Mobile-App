@@ -4,8 +4,7 @@
 |---|---|---|---|
 ## 💁 About
 ![Android](https://img.shields.io/badge/Android-v7.1.1(Nougat)-green) ![API](https://img.shields.io/badge/API-v25-yellow)  
-Hi, my name is Jishen Harilal, let me take you through a quick demonstration of *WingWatch*, a birdwatching app developed with [Mapbox](https://www.mapbox.com/)  and [eBird API 2.0](https://documenter.getpostman.com/view/664302/S1ENwy59).
-
+Hi, my name is Jishen Harilal, let me take you through a quick demonstration of *WingWatch*, a birdwatching app developed with [Mapbox](https://www.mapbox.com/)  and [eBird API 2.0](https://documenter.getpostman.com/view/664302/S1ENwy59). (Click Below to see the video!)
 [![Video](https://img.youtube.com/vi/hWf8AVWTMKs/maxresdefault.jpg)](https://youtu.be/hWf8AVWTMKs)
 ## 💻Compilation
 Clone this repo in Android Studio and install any required files by syncing Gradle. Small file downloads should take 1-2 minutes.
