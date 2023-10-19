@@ -3,36 +3,73 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="40dp">
+
+    <TextView
+        android:id="@+id/tvSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:text="New Observation"
+        android:textColor="@color/blue_wing_watch"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvBird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Bird Name:"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/etCommonName2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etCommonName2" />
+
+    <TextView
+        android:id="@+id/tvNumBird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="How Many?"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/npHowMany"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/npHowMany" />
 
     <EditText
         android:id="@+id/etCommonName2"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="50dp"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvBird"
+        app:layout_constraintTop_toBottomOf="@+id/tvSettings" />
 
     <NumberPicker
         android:id="@+id/npHowMany"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCommonName2"
-        app:layout_constraintVertical_bias="0.061" />
+        app:layout_constraintStart_toEndOf="@+id/tvNumBird"
+        app:layout_constraintTop_toBottomOf="@+id/etCommonName2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAdd"
-        android:layout_width="190dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/active_button"
-        android:drawableStart="@drawable/baseline_settings_24"
+        android:drawableStart="@drawable/baseline_add_24"
         android:drawablePadding="10dp"
         android:fontFamily="@font/sourcesanspro_bold"
         android:paddingHorizontal="30dp"
@@ -45,5 +82,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etHowMany" />
+        app:layout_constraintTop_toBottomOf="@+id/npHowMany" />
 </androidx.constraintlayout.widget.ConstraintLayout>

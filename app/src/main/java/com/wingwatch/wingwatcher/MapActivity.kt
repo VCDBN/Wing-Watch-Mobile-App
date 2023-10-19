@@ -8,36 +8,28 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
 import com.mapbox.android.gestures.MoveGestureDetector
-import com.mapbox.api.directions.v5.MapboxDirections
-import com.mapbox.api.directions.v5.models.DirectionsResponse
-import com.mapbox.api.directions.v5.models.DirectionsRoute
-import com.mapbox.core.constants.Constants
-import com.mapbox.core.constants.Constants.PRECISION_6
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.LineString
 import com.mapbox.geojson.Point
-import com.mapbox.maps.*
+import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.MapInitOptions
+import com.mapbox.maps.MapView
+import com.mapbox.maps.ResourceOptions
+import com.mapbox.maps.Style
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.extension.style.layers.addLayer
-import com.mapbox.maps.extension.style.layers.generated.LineLayer
 import com.mapbox.maps.extension.style.layers.generated.lineLayer
 import com.mapbox.maps.extension.style.layers.properties.generated.LineCap
 import com.mapbox.maps.extension.style.layers.properties.generated.LineJoin
 import com.mapbox.maps.extension.style.sources.addSource
 import com.mapbox.maps.extension.style.sources.generated.GeoJsonSource
 import com.mapbox.maps.extension.style.sources.getSourceAs
-import com.mapbox.maps.extension.style.utils.ColorUtils
 import com.mapbox.maps.plugin.LocationPuck2D
 import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
@@ -49,19 +41,12 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
-import com.mapbox.maps.viewannotation.ViewAnnotationManager
-import com.mapbox.maps.viewannotation.viewAnnotationOptions
-
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
-import com.wingwatch.wingwatcher.GlobalVariables.directions
 import com.wingwatch.wingwatcher.GlobalVariables.observations
-import com.wingwatch.wingwatcher.databinding.ActivityMainBinding
-import com.wingwatch.wingwatcher.databinding.AnnotationViewBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 import java.lang.ref.WeakReference
 
 
@@ -263,7 +248,7 @@ class MapActivity : AppCompatActivity() {
                                             "route-layer", "route-source") {
                                             lineCap(LineCap.ROUND)
                                             lineJoin(LineJoin.ROUND)
-                                            lineColor(Color.parseColor("#FF0000"))
+                                            lineColor(Color.parseColor("#f20000"))
                                             lineWidth(5.0)
                                         }
                                         mapStyle.addLayer(lineLayer)
@@ -352,7 +337,7 @@ class MapActivity : AppCompatActivity() {
                                             "route-layer2", "route-source1") {
                                             lineCap(LineCap.ROUND)
                                             lineJoin(LineJoin.ROUND)
-                                            lineColor(Color.parseColor("#ADD8E6"))
+                                            lineColor(Color.parseColor("#00AAFF"))
                                             lineWidth(5.0)
                                         }
                                         mapStyle.addLayer(lineLayer)
