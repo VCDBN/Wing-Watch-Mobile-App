@@ -18,5 +18,7 @@ interface DirectionsApi {
             @Query("alternatives") alternatives: Boolean,
             @Query("geometries") geometries: String,
             @Query("overview") overview: String,
+            @Query("steps") steps: Boolean,
+            @Query("language") language: String,
             @Query("access_token") access_token : String): Call<DirectionsResponse>
 }
