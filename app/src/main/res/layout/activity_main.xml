@@ -92,7 +92,7 @@
         android:fontFamily="@font/sourcesanspro_bold"
         android:paddingHorizontal="30dp"
         android:paddingVertical="10dp"
-        android:text="New Observation"
+        android:text="My Observations"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
