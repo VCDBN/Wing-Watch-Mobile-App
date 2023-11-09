@@ -10,10 +10,53 @@ data class Routes (
     @SerializedName("duration"    ) var duration   : Double?         = null,
     @SerializedName("distance"    ) var distance   : Double?         = null,
     @SerializedName("legs"        ) var legs       : ArrayList<Legs> = arrayListOf(),
-    @SerializedName("geometry"    ) var geometry   : String?         = null
+    @SerializedName("geometry"    ) var geometry   : Geometry?
 
 )
 
+data class MapboxStreetsV8 (
+
+    @SerializedName("class" ) var class1 : String? = null
+
+)
+data class Intersections (
+
+    @SerializedName("classes"           ) var classes         : ArrayList<String>  = arrayListOf(),
+    @SerializedName("entry"             ) var entry           : ArrayList<Boolean> = arrayListOf(),
+    @SerializedName("bearings"          ) var bearings        : ArrayList<Int>     = arrayListOf(),
+    @SerializedName("duration"          ) var duration        : Double?            = null,
+    @SerializedName("mapbox_streets_v8" ) var mapboxStreetsV8 : MapboxStreetsV8?   = MapboxStreetsV8(),
+    @SerializedName("is_urban"          ) var isUrban         : Boolean?           = null,
+    @SerializedName("admin_index"       ) var adminIndex      : Int?               = null,
+    @SerializedName("out"               ) var out             : Int?               = null,
+    @SerializedName("weight"            ) var weight          : Double?            = null,
+    @SerializedName("geometry_index"    ) var geometryIndex   : Int?               = null,
+    @SerializedName("location"          ) var location        : ArrayList<Double>  = arrayListOf()
+)
+
+data class Maneuver (
+
+    @SerializedName("type"           ) var type          : String?           = null,
+    @SerializedName("instruction"    ) var instruction   : String?           = null,
+    @SerializedName("bearing_after"  ) var bearingAfter  : Int?              = null,
+    @SerializedName("bearing_before" ) var bearingBefore : Int?              = null,
+    @SerializedName("location"       ) var location      : ArrayList<Double> = arrayListOf()
+
+)
+data class Steps (
+
+    @SerializedName("intersections" ) var intersections : ArrayList<Intersections> = arrayListOf(),
+    @SerializedName("maneuver"      ) var maneuver      : Maneuver?,
+    @SerializedName("name"          ) var name          : String?                  = null,
+    @SerializedName("duration"      ) var duration      : Double?                  = null,
+    @SerializedName("distance"      ) var distance      : Double?                  = null,
+    @SerializedName("driving_side"  ) var drivingSide   : String?                  = null,
+    @SerializedName("weight"        ) var weight        : Double?                  = null,
+    @SerializedName("mode"          ) var mode          : String?                  = null,
+    @SerializedName("ref"           ) var ref           : String?                  = null,
+    @SerializedName("geometry"      ) var geometry      : Geometry?
+
+)
 
 data class Waypoints (
 
@@ -29,7 +72,7 @@ data class Legs (
     @SerializedName("admins"        ) var admins       : ArrayList<Admins> = arrayListOf(),
     @SerializedName("weight"        ) var weight       : Double?           = null,
     @SerializedName("duration"      ) var duration     : Double?           = null,
-    @SerializedName("steps"         ) var steps        : ArrayList<String> = arrayListOf(),
+    @SerializedName("steps"         ) var steps        : ArrayList<Steps>  = arrayListOf(),
     @SerializedName("distance"      ) var distance     : Double?           = null,
     @SerializedName("summary"       ) var summary      : String?           = null
 
@@ -44,7 +87,8 @@ data class Admins (
 
 
 data class DirectionsResponse (
-    @SerializedName("routes") val routes: List<RouteGeometry>,
+    @SerializedName("routes") val routes: List<Routes>,
+    @SerializedName("waypoints" ) var waypoints : ArrayList<Waypoints> = arrayListOf(),
     @SerializedName("code"      ) var code : String? = null,
     @SerializedName("uuid"      ) var uuid : String? = null
 )
