@@ -211,6 +211,8 @@ class MapActivity : AppCompatActivity() {
                         alternatives = true,
                         geometries = "geojson",
                         overview = "full",
+                        steps = true,
+                        language = "en",
                         access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
 
                     apiCall.enqueue(object : Callback<DirectionsResponse> {
@@ -219,10 +221,14 @@ class MapActivity : AppCompatActivity() {
                             response: Response<DirectionsResponse>
                         ) {
                             if (response.isSuccessful) {
-                                val route: RouteGeometry? = response.body()?.routes?.firstOrNull()
+                                val route: Routes? = response.body()?.routes?.firstOrNull()
                                 if (route != null) {
-
-                                    val coordinates = route.geometry.coordinates.map { Point.fromLngLat(it[0], it[1]) }
+                                    route.legs.forEach{
+                                        it.steps.forEach{
+                                            Log.i("instruction", it.maneuver!!.instruction!!)
+                                        }
+                                    }
+                                    val coordinates = route.geometry!!.coordinates.map { Point.fromLngLat(it[0], it[1]) }
                                     val geometry = LineString.fromLngLats(coordinates)
                                     val routeFeature = Feature.fromGeometry(geometry)
                                     val featureCollection =
@@ -300,6 +306,8 @@ class MapActivity : AppCompatActivity() {
                         alternatives = true,
                         geometries = "geojson",
                         overview = "full",
+                        steps = true,
+                        language = "en",
                         access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
 
                     apiCall.enqueue(object : Callback<DirectionsResponse> {
@@ -308,10 +316,10 @@ class MapActivity : AppCompatActivity() {
                             response: Response<DirectionsResponse>
                         ) {
                             if (response.isSuccessful) {
-                                val route: RouteGeometry? = response.body()?.routes?.firstOrNull()
+                                val route: Routes? = response.body()?.routes?.firstOrNull()
                                 if (route != null) {
 
-                                    val coordinates = route.geometry.coordinates.map { Point.fromLngLat(it[0], it[1]) }
+                                    val coordinates = route.geometry!!.coordinates.map { Point.fromLngLat(it[0], it[1]) }
                                     val geometry = LineString.fromLngLats(coordinates)
                                     val routeFeature = Feature.fromGeometry(geometry)
                                     val featureCollection =
