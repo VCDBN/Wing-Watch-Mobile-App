@@ -18,6 +18,9 @@
         android:theme="@style/Theme.WingWatcher"
         tools:targetApi="31">
         <activity
+            android:name=".ViewObsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ObservationsActivity"
             android:exported="false" />
         <activity

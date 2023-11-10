@@ -18,7 +18,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.wingwatch.wingwatcher.GlobalVariables.observations
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -85,23 +84,28 @@ class AddObsActivity : AppCompatActivity() {
             Log.i("LNG+++++++++++++++++++++++++++++++++", longitude.toString())
         }
 
-        btnAdd.setOnClickListener(){
+        btnAdd.setOnClickListener() {
 
-            var species = txtSpecies.text.toString()
-            var count = npHowMany.value
-            val observation = Observation(null,
+            Toast.makeText(this, "Uploading Observation", Toast.LENGTH_SHORT).show()
+            val species = txtSpecies.text.toString()
+            val count = npHowMany.value
+
+            val observation = Observation(
+                null,
                 null,
                 species,
                 count.toString(),
                 getCurrentDateTime(),
-                longitude.toString(),
-                latitude.toString(),
-                null)
+                longitude,
+                latitude,
+                null
+            )
 
-            if(imageAttached){upload(observation)}
-            else{uploadNoImage(observation)}
-
-            observations.add(Bird(species, count, longitude, latitude))
+            if (imageAttached) {
+                upload(observation)
+            } else {
+                uploadNoImage(observation)
+            }
         }
     }
 
@@ -124,41 +128,69 @@ class AddObsActivity : AppCompatActivity() {
                             "species" to observation.species,
                             "count" to observation.count,
                             "date" to observation.date,
-                            "imageUrl" to it.toString(),
+                            "imgUrl" to it.toString(),
                             "lon" to observation.lon,
-                            "lat" to observation.lat,
+                            "lat" to observation.lat
                         )
                         dbObsRef.child(obsKey!!).setValue(obsData)
                             .addOnSuccessListener {
                                 Toast.makeText(
                                     this@AddObsActivity,
-                                    "Observation added",
+                                    "Uploaded",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                val intent = Intent(this, ObservationsActivity::class.java)
+                                val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
                             .addOnFailureListener {
                                 Toast.makeText(
                                     this@AddObsActivity,
-                                    "Failed to add observation",
+                                    "Upload failed",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                val intent = Intent(this, ObservationsActivity::class.java)
+                                val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
-
                     }
             }
     }
 
     private fun uploadNoImage(observation: Observation) {
-        Toast.makeText(this, "Adding without image has not been implemented yet.", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, ObservationsActivity::class.java)
-        startActivity(intent)
-        finish()
+        val dbObsRef = FirebaseDatabase.getInstance().getReference("Observations")
+        val obsKey = dbObsRef.push().key
+        val obsData = mapOf(
+            "obsKey" to obsKey.toString(),
+            "userKey" to auth.currentUser?.email.toString(),
+            "species" to observation.species,
+            "count" to observation.count,
+            "date" to observation.date,
+            "imgUrl" to null,
+            "lon" to observation.lon,
+            "lat" to observation.lat,
+        )
+        dbObsRef.child(obsKey!!).setValue(obsData)
+            .addOnSuccessListener {
+                Toast.makeText(
+                    this,
+                    "Uploaded",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            .addOnFailureListener {
+                Toast.makeText(
+                    this,
+                    "Upload failed",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
     }
 
     private fun getCurrentDateTime(): String {

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class ObservationsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +16,19 @@ class ObservationsActivity : AppCompatActivity() {
         btnAddObs.setOnClickListener{
             val intent = Intent(this, AddObsActivity::class.java)
             startActivity(intent)
+            finish()
         }
+
+        HelperClass.updateObsList()
+
+        val rvObs = findViewById<RecyclerView>(R.id.rvObservations)
+        val adapterObs = ObsAdapter(GlobalVariables.observations){ observation ->
+            val intent = Intent(this@ObservationsActivity, ViewObsActivity::class.java)
+            intent.putExtra("obs", observation)
+            startActivity(intent)
+            finish()
+        }
+        rvObs.adapter = adapterObs
+        rvObs.layoutManager = LinearLayoutManager(this@ObservationsActivity)
     }
-}
+    }

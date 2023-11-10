@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="40dp">
 
     <TextView
@@ -13,7 +15,8 @@
         android:fontFamily="@font/sourcesanspro_bold"
         android:text="New Observation"
         android:textColor="@color/blue_wing_watch"
-        android:textSize="50sp"
+        android:textSize="39sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,9 +95,11 @@
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        android:layout_marginTop="20dp"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgObsImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
