@@ -54,9 +54,6 @@ class SettingsActivity : AppCompatActivity() {
 
         btnApply.setOnClickListener() {
             updateSettings()
-            loadSettings()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 
@@ -132,10 +129,13 @@ class SettingsActivity : AppCompatActivity() {
                         it.darkMode = swDark.isChecked
                         it.radius = radius
                         it.unitType = unit
+                        GlobalVariables.radius = radius
                         userSnapshot.ref.setValue(it)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    loadSettings() //loads the new settings once the update has completed
+                                    loadSettings()
+                                    val intent = Intent(this@SettingsActivity, MainActivity::class.java)
+                                    startActivity(intent)
                                 } else {
                                     println("Error writing user data to the database: ${task.exception}")
                                 }
