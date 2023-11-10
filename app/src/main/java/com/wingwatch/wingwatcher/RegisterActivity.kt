@@ -1,21 +1,22 @@
 package com.wingwatch.wingwatcher
 
 import android.content.Intent
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
+//Registration code from Chrono App by Jishen Harilal
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var email: EditText
-   private lateinit var password: EditText
+    private lateinit var password: EditText
     private lateinit var confirm: EditText
     private lateinit var inputEmail: String
     private lateinit var inputPassword: String
@@ -114,17 +115,23 @@ class RegisterActivity : AppCompatActivity() {
         }
 
     }
-    fun performRegistration(inputEmail:String, inputPassword:String) { //Registration process creates a firebase auth user and adds a user reference to firebase real-time database
+
+    //Registration process creates a firebase auth user and adds a user reference to firebase real-time database
+    private fun performRegistration(inputEmail:String, inputPassword:String) {
         auth.createUserWithEmailAndPassword(inputEmail, inputPassword)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
 
-
                     Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+
+                    //create user entry in realtime database
+                    val email = auth.currentUser!!.email.toString()
+                    val newUser = User(email, true, 25.0, false)
+                    HelperClass.writeUserToDatabase(newUser)
+
+                    //enter application
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-
-                    //This activity is closed, when the user tries to return, they will be taken to the login activity
                     finish()
 
                 } else {

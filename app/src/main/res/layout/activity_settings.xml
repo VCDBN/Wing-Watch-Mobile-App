@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switchUnitType"
+        android:id="@+id/swUnit"
         android:layout_width="wrap_content"
         android:thumbTint="@color/blue_wing_watch"
         android:layout_height="50dp"
@@ -57,17 +57,31 @@
         android:gravity="center"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvRadius"
-        app:layout_constraintTop_toBottomOf="@+id/switchUnitType" />
+        app:layout_constraintTop_toBottomOf="@+id/swUnit" />
+
+    <Switch
+        android:id="@+id/swDarkMode"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:checked="true"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Dark Mode"
+        android:textSize="25sp"
+        android:layout_marginTop="40dp"
+        android:thumbTint="@color/blue_wing_watch"
+        app:layout_constraintStart_toStartOf="@+id/tvRadius"
+        app:layout_constraintTop_toBottomOf="@+id/npRadius"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnApplySettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/apply"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="10dp"
         android:background="@drawable/active_button"
         android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:text="@string/apply"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="25sp"
@@ -75,6 +89,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/npRadius" />
+        app:layout_constraintTop_toBottomOf="@+id/swDarkMode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

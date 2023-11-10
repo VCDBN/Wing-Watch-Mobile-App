@@ -1,12 +1,16 @@
 package com.wingwatch.wingwatcher
 
+import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.wingwatch.wingwatcher.GlobalVariables.observations
+import com.wingwatch.wingwatcher.GlobalVariables.radius
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -44,6 +48,43 @@ class HelperClass {
                     }
                 }
                 override fun onCancelled(databaseError: DatabaseError) {}
+            })
+        }
+
+        fun writeUserToDatabase(user: User){
+            val auth = Firebase.auth
+            val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+            databaseReference.child(auth.currentUser!!.uid).setValue(user)
+        }
+
+        fun loadSettings() {
+            val auth = Firebase.auth
+            val email = auth.currentUser!!.email.toString()
+            val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+            val query: Query = databaseReference.orderByChild("email").equalTo(email)
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        //get existing user and load settings
+                        val user = dataSnapshot.children.first().getValue(User::class.java)
+                        radius = user!!.radius
+                        if(user.darkMode){
+                            //set dark mode
+                            Log.i("+_+_+_+_+_+LOADED_SETTINGS_+_+_+_+_+_+", "Settings: DARK, Rad: $radius")
+                        }else{
+                            //set light mode
+                            Log.i("+_+_+_+_+_+LOADED_SETTINGS_+_+_+_+_+_+", "Settings: LIGHT, Rad: $radius")
+                        }
+                    } else {
+                        // User does not exist, create a new user with default values
+                        radius = 25.0
+                        //set light mode
+                        Log.i("+_+_+_+_+_+LOADED_SETTINGS_+_+_+_+_+_+", "Settings: DARK, Rad: $radius (DEFAULT)")
+                    }
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    println("Error: ${databaseError.message}")
+                }
             })
         }
     }
