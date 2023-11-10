@@ -115,7 +115,7 @@ class AddObsActivity : AppCompatActivity() {
             .addOnSuccessListener { task ->
                 task.metadata!!.reference!!.downloadUrl
                     .addOnSuccessListener {
-                        //------------------------------------------END OF CODE ATTRIBUTION---------------------------
+                        //------------------------------------------END OF CODE ATTRIBUTION-------------------------------------------
                         val dbObsRef = FirebaseDatabase.getInstance().getReference("Observations")
                         val obsKey = dbObsRef.push().key
                         val obsData = mapOf(
