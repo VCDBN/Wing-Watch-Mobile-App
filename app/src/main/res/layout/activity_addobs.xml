@@ -18,17 +18,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvBird"
+        android:id="@+id/tvSpecies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sourcesanspro_semibold"
-        android:text="Bird Name:"
+        android:text="Bird Species:"
         android:textColor="@color/black"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/etCommonName2"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSpecies"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etCommonName2" />
+        app:layout_constraintTop_toTopOf="@+id/txtSpecies" />
 
     <TextView
         android:id="@+id/tvNumBird"
@@ -43,26 +43,40 @@
         app:layout_constraintTop_toTopOf="@+id/npHowMany" />
 
     <EditText
-        android:id="@+id/etCommonName2"
+        android:hint="e.g., Sparrow"
+        android:id="@+id/txtSpecies"
         android:layout_width="160dp"
         android:layout_height="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/sourcesanspro_semibold"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvBird"
+        app:layout_constraintStart_toEndOf="@+id/tvSpecies"
         app:layout_constraintTop_toBottomOf="@+id/tvSettings" />
 
     <NumberPicker
         android:id="@+id/npHowMany"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvNumBird"
-        app:layout_constraintTop_toBottomOf="@+id/etCommonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSpecies" />
+
+    <ImageView
+        android:id="@+id/imgObsImage"
+        android:layout_width="260dp"
+        android:layout_height="130dp"
+        android:background="@drawable/img_not_attached"
+        android:contentDescription="observation image"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/attach_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/npHowMany" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAdd"
@@ -82,5 +96,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/npHowMany" />
+        app:layout_constraintTop_toBottomOf="@+id/imgObsImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

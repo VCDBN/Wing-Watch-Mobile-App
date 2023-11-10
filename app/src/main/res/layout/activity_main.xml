@@ -20,7 +20,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_marginBottom="30dp"
-        android:id="@+id/btnMap"
+        android:id="@+id/btnAddObs"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:background="@drawable/active_button"
@@ -56,10 +56,10 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddObs"
+        app:layout_constraintBottom_toTopOf="@+id/btnObs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMap" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddObs" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnExit"
@@ -79,20 +79,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddObs" />
+        app:layout_constraintTop_toBottomOf="@+id/btnObs" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_marginBottom="30dp"
-        android:id="@+id/btnAddObs"
+        android:id="@+id/btnObs"
         android:layout_width="290sp"
         android:layout_height="wrap_content"
         android:background="@drawable/active_button"
-        android:drawableStart="@drawable/baseline_add_location_24"
+        android:drawableStart="@drawable/baseline_location_on_24"
         android:drawablePadding="10dp"
         android:fontFamily="@font/sourcesanspro_bold"
         android:paddingHorizontal="30dp"
         android:paddingVertical="10dp"
-        android:text="My Observations"
+        android:text="Observations"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
