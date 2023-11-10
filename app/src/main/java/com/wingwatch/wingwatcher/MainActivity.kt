@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        HelperClass.loadSettings()
         HelperClass.updateObsList()
         coordinatesProvider = CoordinatesProvider(this)
 
