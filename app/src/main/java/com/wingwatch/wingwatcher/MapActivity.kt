@@ -112,8 +112,8 @@ class MapActivity : AppCompatActivity() {
                 addAnnotationToMap(point.lon,point.lat)
             }
 
-            for(bird in observations){
-                addObservationToMap(bird.lng,bird.lat)
+            for(observation in observations){
+                addObservationToMap(observation.lon,observation.lat)
             }
             mapStyle = it
             mapView.location
