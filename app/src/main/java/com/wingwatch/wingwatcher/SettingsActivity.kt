@@ -100,6 +100,8 @@ class SettingsActivity : AppCompatActivity() {
             npRadius.value = (radius/1.609).roundToInt()
             tvRadius.text = miles
         }
+        //fixes value display bug by redrawing the number picker.
+        npRadius.requestLayout()
     }
 
     fun updateSettings(){

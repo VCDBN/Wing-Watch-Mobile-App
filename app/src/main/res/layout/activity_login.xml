@@ -23,7 +23,7 @@
             android:layout_height="100dp"
             android:contentDescription="WingWatch"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/wingwatcher_logo" />
+            app:srcCompat="@drawable/wingwatch_logo" />
 
         <TextView
             android:id="@+id/tvLoginWingWatcher"

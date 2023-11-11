@@ -12,9 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lytItemObs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@color/grey_border"
+        style="@style/CARD"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp">
 
@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sourcesanspro_semibold"
             android:text="Southern Red Bishop"
+            android:layout_marginTop="5dp"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,10 +34,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sourcesanspro_bold"
-            android:text="x6"
+            android:text="6"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvObsSpecies"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tvObsSpecies" />
 
         <TextView
             android:id="@+id/tvObsDate"
@@ -44,7 +46,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sourcesanspro_semibold"
             android:text="12 June 2023"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvObsSpecies" />
 

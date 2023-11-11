@@ -47,10 +47,12 @@ class AddObsActivity : AppCompatActivity() {
         //URL: "https://www.youtube.com/watch?v=VueRFU7ETOc&ab_channel=WaseemShakoor"
         val galleryImage = registerForActivityResult(
             ActivityResultContracts.GetContent()
-        ) {
-            imageView.setImageURI(it)
-            imageAttached = true
-            uri = it!!
+        ) { result: Uri? ->
+            result?.let {
+                imageView.setImageURI(it)
+                imageAttached = true
+                uri = it
+            }
         }
         imageView.setOnClickListener {
             galleryImage.launch("image/*")
