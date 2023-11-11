@@ -1,6 +1,7 @@
 package com.wingwatch.wingwatcher
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -69,16 +70,16 @@ class HelperClass {
                         val user = dataSnapshot.children.first().getValue(User::class.java)
                         radius = user!!.radius
                         if(user.darkMode){
-                            //set dark mode
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                             Log.i("+_+_+_+_+_+LOADED_SETTINGS_+_+_+_+_+_+", "Settings: DARK, Rad: $radius")
                         }else{
-                            //set light mode
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                             Log.i("+_+_+_+_+_+LOADED_SETTINGS_+_+_+_+_+_+", "Settings: LIGHT, Rad: $radius")
                         }
                     } else {
                         // User does not exist, create a new user with default values
                         radius = 25.0
-                        //set light mode
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         Log.i("+_+_+_+_+_+LOADED_SETTINGS_+_+_+_+_+_+", "Settings: DARK, Rad: $radius (DEFAULT)")
                     }
                 }
