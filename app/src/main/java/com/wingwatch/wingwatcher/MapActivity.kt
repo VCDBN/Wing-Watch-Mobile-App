@@ -8,20 +8,19 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.LineString
 import com.mapbox.geojson.Point
-import com.mapbox.maps.CameraOptions
-import com.mapbox.maps.MapInitOptions
-import com.mapbox.maps.MapView
-import com.mapbox.maps.ResourceOptions
-import com.mapbox.maps.Style
+import com.mapbox.maps.*
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.extension.style.layers.addLayer
 import com.mapbox.maps.extension.style.layers.generated.lineLayer
@@ -41,8 +40,10 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.viewannotation.viewAnnotationOptions
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
+import com.wingwatch.wingwatcher.GlobalVariables.featureIds
 import com.wingwatch.wingwatcher.GlobalVariables.observations
 import retrofit2.Call
 import retrofit2.Callback
@@ -88,7 +89,7 @@ class MapActivity : AppCompatActivity() {
             .accessToken(accessToken)
             .build()
 
-        mapView = MapView(this, MapInitOptions(this, resourceOptions))
+        mapView = MapView(this, MapInitOptions(this, resourceOptions).apply { textureView = true })
         setContentView(mapView)
 
         locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
@@ -108,8 +109,12 @@ class MapActivity : AppCompatActivity() {
         ) {
             initLocationComponent()
             setupGesturesListener()
+            var count = 0
             for (point in coords) {
-                addAnnotationToMap(point.lon,point.lat)
+                val featureId = "mapbox_annotation_$count"
+                featureIds.add(featureId)
+                addAnnotationToMap(point.lon,point.lat,featureId)
+                count++
             }
 
             for(observation in observations){
@@ -117,6 +122,8 @@ class MapActivity : AppCompatActivity() {
             }
             mapStyle = it
             mapView.location
+
+
         }
     }
 
@@ -186,7 +193,7 @@ class MapActivity : AppCompatActivity() {
 //Title : Annotation documentation
 //Author: "Mapbox"
 //URL: "https://docs.mapbox.com/android/maps/guides/annotations/annotations/"
-    private fun addAnnotationToMap(lon : Double?, lat : Double?) {
+    private fun addAnnotationToMap(lon : Double?, lat : Double?, featureId : String) {
 
         bitmapFromDrawableRes(
             this@MapActivity,
@@ -199,6 +206,23 @@ class MapActivity : AppCompatActivity() {
                 override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
                     Log.i("clicked", "$lon,$lat")
 
+                    var foundIndex = -1  // Initialize the index to -1 (not found)
+
+                    for ((index, location) in coords.withIndex()) {
+                        if (location.lat == lat && location.lon == lon) {
+                            foundIndex = index  // Set the index when the target location is found
+                            break
+                        }
+                    }
+
+                    val viewAnnotationManager = mapView.viewAnnotationManager
+                    val viewAnnotation = viewAnnotationManager.addViewAnnotation(
+                        resId = R.layout.item_callout_view,
+                        options = viewAnnotationOptions {
+                            geometry(Point.fromLngLat(lon!!, lat!!))
+                            visible(true)
+                        }
+                    )
 
                     val origin = Point.fromLngLat(currentPosition.lon, currentPosition.lat)
                     val destination = Point.fromLngLat(lon!!, lat!!)
@@ -270,15 +294,19 @@ class MapActivity : AppCompatActivity() {
 
                 }
             })
+            val featureIdJson = JsonObject()
+            featureIdJson.addProperty("featureId", featureId)
+
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
 
                 .withPoint(Point.fromLngLat(lon!!, lat!!))
 
                 .withIconImage(it)
 
+
                 pointAnnotationManager?.create(pointAnnotationOptions)
 
-
+            Log.i("fId", pointAnnotationManager?.create(pointAnnotationOptions)!!.featureIdentifier)
         }
     }
 
