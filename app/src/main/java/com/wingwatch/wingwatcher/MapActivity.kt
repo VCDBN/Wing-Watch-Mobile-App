@@ -43,7 +43,6 @@ import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.viewannotation.viewAnnotationOptions
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
-import com.wingwatch.wingwatcher.GlobalVariables.featureIds
 import com.wingwatch.wingwatcher.GlobalVariables.observations
 import retrofit2.Call
 import retrofit2.Callback
@@ -111,9 +110,7 @@ class MapActivity : AppCompatActivity() {
             setupGesturesListener()
             var count = 0
             for (point in coords) {
-                val featureId = "mapbox_annotation_$count"
-                featureIds.add(featureId)
-                addAnnotationToMap(point.lon,point.lat,featureId)
+                addAnnotationToMap(point.lon,point.lat,point.comName,point.howMany,point.obsDt)
                 count++
             }
 
@@ -193,7 +190,7 @@ class MapActivity : AppCompatActivity() {
 //Title : Annotation documentation
 //Author: "Mapbox"
 //URL: "https://docs.mapbox.com/android/maps/guides/annotations/annotations/"
-    private fun addAnnotationToMap(lon : Double?, lat : Double?, featureId : String) {
+    private fun addAnnotationToMap(lon : Double?, lat : Double?, comName : String?, howMany : Int?, obsDt : String?) {
 
         bitmapFromDrawableRes(
             this@MapActivity,
@@ -215,7 +212,12 @@ class MapActivity : AppCompatActivity() {
                         }
                     }
 
+                    val tvViewAnnotation = findViewById<TextView>(R.id.tvViewAnnotation)
+                    tvViewAnnotation.text = "Name : ${comName} \n How many: ${howMany} \n Date : ${obsDt}"
+
+
                     val viewAnnotationManager = mapView.viewAnnotationManager
+                    viewAnnotationManager.removeAllViewAnnotations()
                     val viewAnnotation = viewAnnotationManager.addViewAnnotation(
                         resId = R.layout.item_callout_view,
                         options = viewAnnotationOptions {
@@ -294,8 +296,7 @@ class MapActivity : AppCompatActivity() {
 
                 }
             })
-            val featureIdJson = JsonObject()
-            featureIdJson.addProperty("featureId", featureId)
+
 
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
 

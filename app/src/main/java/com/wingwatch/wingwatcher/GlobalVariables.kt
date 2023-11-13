@@ -4,7 +4,7 @@ object GlobalVariables {
     val coords: MutableList<HotSpot> = mutableListOf()
     var currentPosition = Postion(0.0,0.0)
     var observations : MutableList<Observation> = mutableListOf()
-    var featureIds: MutableList<String> = mutableListOf()
+
     //Default is 25km
     //Changed in app through Settings Activity
     //'radius' is always in km
