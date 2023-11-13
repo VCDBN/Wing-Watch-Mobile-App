@@ -55,6 +55,7 @@ import java.lang.ref.WeakReference
 //URL: "https://docs.mapbox.com/android/maps/examples/location-tracking/"
 class MapActivity : AppCompatActivity() {
 
+
     private lateinit var locationPermissionHelper: LocationPermissionHelper
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
@@ -83,12 +84,14 @@ class MapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         val accessToken = getString(R.string.mapbox_access_token)
         val resourceOptions = ResourceOptions.Builder()
             .accessToken(accessToken)
             .build()
 
-        mapView = MapView(this, MapInitOptions(this, resourceOptions).apply { textureView = true })
+        mapView = MapView(this, MapInitOptions(this, resourceOptions))
         setContentView(mapView)
 
         locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
@@ -212,9 +215,13 @@ class MapActivity : AppCompatActivity() {
                         }
                     }
 
-                    val tvViewAnnotation = findViewById<TextView>(R.id.tvViewAnnotation)
-                    tvViewAnnotation.text = "Name : ${comName} \n How many: ${howMany} \n Date : ${obsDt}"
 
+                    val view = layoutInflater.inflate(R.layout.item_callout_view, null)
+                    val textView : TextView = view.findViewById(R.id.tvHotspot) as TextView
+
+                    textView.text = "Name : ${comName} \n How many: ${howMany} \n Date : ${obsDt}"
+
+                    Log.i("tvhospottext", textView.text.toString())
 
                     val viewAnnotationManager = mapView.viewAnnotationManager
                     viewAnnotationManager.removeAllViewAnnotations()
@@ -296,16 +303,11 @@ class MapActivity : AppCompatActivity() {
 
                 }
             })
-
-
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
-
                 .withPoint(Point.fromLngLat(lon!!, lat!!))
-
                 .withIconImage(it)
 
-
-                pointAnnotationManager?.create(pointAnnotationOptions)
+            pointAnnotationManager?.create(pointAnnotationOptions)
 
             Log.i("fId", pointAnnotationManager?.create(pointAnnotationOptions)!!.featureIdentifier)
         }
