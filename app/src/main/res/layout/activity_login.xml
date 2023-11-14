@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/imgLogo"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:contentDescription="WingWatch"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/wingwatch_logo" />
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:fontFamily="@font/sourcesanspro_regular"
+            android:fontFamily="@font/sourcesanspro_semibold"
             android:text="log into WingWatch"
             android:textAlignment="center"
             android:textSize="33sp"
@@ -131,7 +131,7 @@
             android:fontFamily="@font/sourcesanspro_bold"
             android:text="Register"
             style="@style/TEXT"
-            android:textSize="27sp"
+            android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/lytLoginPassword"
             app:layout_constraintHorizontal_bias="0.5"
