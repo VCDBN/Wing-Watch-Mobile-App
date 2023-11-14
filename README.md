@@ -14,3 +14,18 @@ Clone this repo in Android Studio and install any required files by syncing Grad
 🗺️[Mapbox Website](https://www.mapbox.com/)  
 📐[Mapbox Documentation](https://docs.mapbox.com/android/maps/guides/)  
 🐧[eBird API 2.0 Documentation](https://documenter.getpostman.com/view/664302/S1ENwy59)
+## 🔗 Release Notes
+Own Feature 1
+- User can now view the directions from their current position to the selected hotspot or observation
+  
+Own Feature 2
+- User can now change their application theme to dark mode
+  
+Additional Features
+- User can now select a hotspot or observation on the map and view the details of that hotspot or observation
+- User data is persisted using Firebase Storage and Firebase Realtime Database
+- User authentication is handled by Firebase Authentication using email and password
+- User can now add images to their observations
+- User settings are persisted in Firebase 
+  
+
