@@ -1,7 +1,9 @@
 package com.wingwatch.wingwatcher
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 
 class ViewAnnotationActivity : AppCompatActivity() {
@@ -26,6 +28,12 @@ class ViewAnnotationActivity : AppCompatActivity() {
         tvComName.text = comName
         tvHowMany.text = howMany.toString()
         tvObsDt.text = obsDt
+
+        val btnDirections = findViewById<Button>(R.id.btnGoToDirections)
+        btnDirections.setOnClickListener(){
+            val intent = Intent(this, ViewDirectionsActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
