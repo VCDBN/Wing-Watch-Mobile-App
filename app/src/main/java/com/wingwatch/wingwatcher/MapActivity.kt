@@ -212,16 +212,7 @@ class MapActivity : AppCompatActivity() {
                     when (clickCount) {
                         1 -> {
                             instructions.clear()
-                            val viewAnnotationManager = mapView.viewAnnotationManager
-                            viewAnnotationManager.removeAllViewAnnotations()
-                            val viewAnnotation = viewAnnotationManager.addViewAnnotation(
-                                resId = R.layout.item_callout_view,
-                                options = viewAnnotationOptions {
-                                    geometry(Point.fromLngLat(lon!!, lat!!))
-                                    visible(true)
 
-                                }
-                            )
 
                             val origin = Point.fromLngLat(currentPosition.lon, currentPosition.lat)
                             val destination = Point.fromLngLat(lon!!, lat!!)
@@ -295,12 +286,7 @@ class MapActivity : AppCompatActivity() {
 
                         }
                         2 -> {
-                            setContentView(R.layout.item_callout_view)
-                            val btnHs = findViewById<Button>(R.id.btnHotspotDetails)
-                            val btnDirections = findViewById<Button>(R.id.btnDirections)
-
-                            btnHs.setOnClickListener(){
-                                Log.i("btnHs","clicked")
+                                clickCount = 0
                                 val intent = Intent(context, ViewAnnotationActivity::class.java)
                                 intent.putExtra("lat", lat)
                                 intent.putExtra("lon", lon)
@@ -309,14 +295,11 @@ class MapActivity : AppCompatActivity() {
                                 intent.putExtra("obsDt", obsDt)
 
                                 startActivity(intent)
-                            }
-                            btnDirections.setOnClickListener(){
-                                Log.i("btnDirections","clicked")
 
-                                val intent = Intent(context, ViewDirectionsActivity::class.java)
-                                intent.putStringArrayListExtra("instructionsList", ArrayList(instructions))
-                                startActivity(intent)
-                            }
+
+                        }
+                        else -> {
+                            clickCount =0
                         }
 
                     }
@@ -353,16 +336,7 @@ class MapActivity : AppCompatActivity() {
                     when (clickCount) {
                         1 -> {
                             instructions.clear()
-                            val viewAnnotationManager = mapView.viewAnnotationManager
-                            viewAnnotationManager.removeAllViewAnnotations()
-                            val viewAnnotation = viewAnnotationManager.addViewAnnotation(
-                                resId = R.layout.item_callout_view,
-                                options = viewAnnotationOptions {
-                                    geometry(Point.fromLngLat(lon!!, lat!!))
-                                    visible(true)
 
-                                }
-                            )
 
                             val origin = Point.fromLngLat(currentPosition.lon, currentPosition.lat)
                             val destination = Point.fromLngLat(lon!!, lat!!)
@@ -436,26 +410,21 @@ class MapActivity : AppCompatActivity() {
 
                         }
                         2 -> {
-                            setContentView(R.layout.item_callout_view)
-                            val btnHs = findViewById<Button>(R.id.btnHotspotDetails)
-                            val btnDirections = findViewById<Button>(R.id.btnDirections)
-
-                            btnHs.setOnClickListener(){
-                                Log.i("btnHs","clicked")
-                                val intent = Intent(context, ViewAnnotationActivity::class.java)
-                                intent.putExtra("lat", lat)
-                                intent.putExtra("lon", lon)
-                                startActivity(intent)
-                            }
-                            btnDirections.setOnClickListener(){
-                                Log.i("btnDirections","clicked")
-
-                                val intent = Intent(context, ViewDirectionsActivity::class.java)
-                                intent.putStringArrayListExtra("instructionsList", ArrayList(instructions))
-                                startActivity(intent)
-                            }
+                            clickCount =0
+                           observations.forEach()
+                           {
+                               if(it.lat == lat && it.lon == lon)
+                               {
+                                   val intent = Intent(this@MapActivity, ViewObsActivity::class.java)
+                                   intent.putExtra("obs", it)
+                                   intent.putExtra("showDirection", true)
+                                   startActivity(intent)
+                               }
+                           }
                         }
-
+                        else -> {
+                            clickCount =0
+                        }
                     }
 
                     return true

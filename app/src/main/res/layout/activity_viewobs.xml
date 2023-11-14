@@ -133,5 +133,27 @@
                 android:textSize="19sp" />
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnShowDirections"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/active_button"
+            android:drawableStart="@drawable/baseline_map_24"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Directions"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lytObsDetails"
+            app:layout_constraintVertical_chainStyle="packed" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

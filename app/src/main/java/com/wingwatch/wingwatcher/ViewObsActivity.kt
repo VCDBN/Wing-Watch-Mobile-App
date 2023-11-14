@@ -1,7 +1,10 @@
 package com.wingwatch.wingwatcher
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +19,19 @@ class ViewObsActivity : AppCompatActivity() {
         //object
         val obs = intent.getSerializableExtra("obs") as Observation
 
+        //show directions
+        val showDirection = intent.getBooleanExtra("showDirection",false)
+
+        if(showDirection)
+        {
+            val btnShowDirections = findViewById<Button>(R.id.btnShowDirections)
+            btnShowDirections.visibility = View.VISIBLE
+            btnShowDirections.setOnClickListener(){
+                val intent = Intent(this, ViewDirectionsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
         //components
         val imgObs = findViewById<ImageView>(R.id.imgObs)
         val tvDate = findViewById<TextView>(R.id.tvDate)
@@ -24,6 +40,7 @@ class ViewObsActivity : AppCompatActivity() {
         val tvLon = findViewById<TextView>(R.id.tvLon)
         val tvLat = findViewById<TextView>(R.id.tvLat)
         val tvImageHint = findViewById<TextView>(R.id.tvImageHint)
+
 
         //set values
 
