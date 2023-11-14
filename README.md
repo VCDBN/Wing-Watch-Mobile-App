@@ -14,3 +14,6 @@ Clone this repo in Android Studio and install any required files by syncing Grad
 🗺️[Mapbox Website](https://www.mapbox.com/)  
 📐[Mapbox Documentation](https://docs.mapbox.com/android/maps/guides/)  
 🐧[eBird API 2.0 Documentation](https://documenter.getpostman.com/view/664302/S1ENwy59)
+## 🔗 Release Notes
+- User can now select a hotspot or observation on the map and view the details of that hotspot or observation
+- User can now view the directions from their current position to the selected hotspot or observation
