@@ -4,8 +4,8 @@
 |---|---|---|---|
 ## 💁 About
 ![Android](https://img.shields.io/badge/Android-v7.1.1(Nougat)-green) ![API](https://img.shields.io/badge/API-v25-yellow)  
-Hi, my name is Jishen Harilal, let me take you through a quick demonstration of *WingWatch*, a birdwatching app developed with [Mapbox](https://www.mapbox.com/)  and [eBird API 2.0](https://documenter.getpostman.com/view/664302/S1ENwy59). (Click Below to see the video!)
-[![Video](https://img.youtube.com/vi/4S7R0hN94as/maxresdefault.jpg)](https://youtu.be/4S7R0hN94as)
+Hi, my name is Jishen Harilal, let me take you through a quick demonstration of *WingWatch*, a birdwatching app developed with [Mapbox](https://www.mapbox.com/)  and [eBird API 2.0](https://documenter.getpostman.com/view/664302/S1ENwy59). (Click Below to see the video!)  
+[![Video](https://img.youtube.com/vi/4S7R0hN94as/default.jpg)](https://youtu.be/4S7R0hN94as)
 ## ⭐ Release Notes <sub><sup>2023/11/14
 #### Own Feature 1
 - User can view the directions from their current position to the selected hotspot or observation.
