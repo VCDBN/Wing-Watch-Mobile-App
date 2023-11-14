@@ -17,4 +17,7 @@
     <style name="CARD">
         <item name="android:background">@color/dark_grey</item>
     </style>
+    <style name="TEXT">
+        <item name="android:textColor">@color/grey_border</item>
+    </style>
 </resources>

@@ -17,5 +17,8 @@
     <style name="CARD">
         <item name="android:background">@color/grey_border</item>
     </style>
+    <style name="TEXT">
+        <item name="android:textColor">@color/blue_wing_watch</item>
+    </style>
 
 </resources>

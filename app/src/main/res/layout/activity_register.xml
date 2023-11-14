@@ -161,7 +161,7 @@
             android:layout_marginEnd="25dp"
             android:fontFamily="@font/sourcesanspro_bold"
             android:text="log in"
-            android:textColor="@color/blue_wing_watch"
+            style="@style/TEXT"
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/lytRegisterConfirmPassword"

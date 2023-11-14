@@ -9,12 +9,12 @@
     android:padding="40dp">
 
     <TextView
+        style="@style/TEXT"
         android:id="@+id/tvSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sourcesanspro_bold"
         android:text="New Observation"
-        android:textColor="@color/blue_wing_watch"
         android:textSize="39sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
