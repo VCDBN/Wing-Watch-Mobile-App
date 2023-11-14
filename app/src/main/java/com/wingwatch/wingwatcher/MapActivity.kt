@@ -46,6 +46,8 @@ import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
 import com.wingwatch.wingwatcher.GlobalVariables.instructions
 import com.wingwatch.wingwatcher.GlobalVariables.observations
+import com.wingwatch.wingwatcher.GlobalVariables.tempLat
+import com.wingwatch.wingwatcher.GlobalVariables.tempLon
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -207,7 +209,16 @@ class MapActivity : AppCompatActivity() {
             pointAnnotationManager?.addClickListener(object : OnPointAnnotationClickListener {
                 override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
                     Log.i("clicked", "$lon,$lat")
-                    clickCount++
+                    if(lon != tempLon && lat != tempLat)
+                    {
+                        tempLon = lon
+                        tempLat = lat
+                        clickCount =1
+                    }
+                    else{
+                        clickCount++
+                    }
+
 
                     when (clickCount) {
                         1 -> {
