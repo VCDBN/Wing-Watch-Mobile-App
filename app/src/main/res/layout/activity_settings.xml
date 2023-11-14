@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sourcesanspro_bold"
-        android:textColor="@color/blue_wing_watch"
+        style="@style/TEXT"
         android:text="Settings"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"

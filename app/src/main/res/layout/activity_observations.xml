@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sourcesanspro_bold"
         android:text="Your Observations"
-        android:textColor="@color/blue_wing_watch"
+        style="@style/TEXT"
         android:textSize="39sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

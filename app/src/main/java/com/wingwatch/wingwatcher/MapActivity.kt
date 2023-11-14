@@ -9,9 +9,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +18,11 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.LineString
 import com.mapbox.geojson.Point
-import com.mapbox.maps.*
+import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.MapInitOptions
+import com.mapbox.maps.MapView
+import com.mapbox.maps.ResourceOptions
+import com.mapbox.maps.Style
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.extension.style.layers.addLayer
 import com.mapbox.maps.extension.style.layers.generated.lineLayer
@@ -41,7 +42,6 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
-import com.mapbox.maps.viewannotation.viewAnnotationOptions
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
 import com.wingwatch.wingwatcher.GlobalVariables.instructions
@@ -261,7 +261,8 @@ class MapActivity : AppCompatActivity() {
                                                     "route-layer", "route-source") {
                                                     lineCap(LineCap.ROUND)
                                                     lineJoin(LineJoin.ROUND)
-                                                    lineColor(Color.parseColor("#f20000"))
+                                                    lineOpacity(0.7)
+                                                    lineColor(Color.parseColor("#FFAA00"))
                                                     lineWidth(5.0)
                                                 }
                                                 mapStyle.addLayer(lineLayer)
@@ -385,7 +386,8 @@ class MapActivity : AppCompatActivity() {
                                                     "route-layer", "route-source") {
                                                     lineCap(LineCap.ROUND)
                                                     lineJoin(LineJoin.ROUND)
-                                                    lineColor(Color.parseColor("#f20000"))
+                                                    lineOpacity(0.7)
+                                                    lineColor(Color.parseColor("#FFAA00"))
                                                     lineWidth(5.0)
                                                 }
                                                 mapStyle.addLayer(lineLayer)

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sourcesanspro_bold"
         android:text="Menu"
-        android:textColor="@color/blue_wing_watch"
+        style="@style/TEXT"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
