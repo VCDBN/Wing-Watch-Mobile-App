@@ -1,6 +1,7 @@
 package com.wingwatch.wingwatcher
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -8,6 +9,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -17,11 +21,7 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.LineString
 import com.mapbox.geojson.Point
-import com.mapbox.maps.CameraOptions
-import com.mapbox.maps.MapInitOptions
-import com.mapbox.maps.MapView
-import com.mapbox.maps.ResourceOptions
-import com.mapbox.maps.Style
+import com.mapbox.maps.*
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.extension.style.layers.addLayer
 import com.mapbox.maps.extension.style.layers.generated.lineLayer
@@ -41,8 +41,10 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.viewannotation.viewAnnotationOptions
 import com.wingwatch.wingwatcher.GlobalVariables.coords
 import com.wingwatch.wingwatcher.GlobalVariables.currentPosition
+import com.wingwatch.wingwatcher.GlobalVariables.instructions
 import com.wingwatch.wingwatcher.GlobalVariables.observations
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,6 +57,7 @@ import java.lang.ref.WeakReference
 //URL: "https://docs.mapbox.com/android/maps/examples/location-tracking/"
 class MapActivity : AppCompatActivity() {
 
+    val context: Context = this
     private lateinit var locationPermissionHelper: LocationPermissionHelper
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
@@ -83,6 +86,8 @@ class MapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         val accessToken = getString(R.string.mapbox_access_token)
         val resourceOptions = ResourceOptions.Builder()
             .accessToken(accessToken)
@@ -108,8 +113,10 @@ class MapActivity : AppCompatActivity() {
         ) {
             initLocationComponent()
             setupGesturesListener()
+            var count = 0
             for (point in coords) {
-                addAnnotationToMap(point.lon,point.lat)
+                addAnnotationToMap(point.lon,point.lat,point.comName,point.howMany,point.obsDt)
+                count++
             }
 
             for(observation in observations){
@@ -117,6 +124,8 @@ class MapActivity : AppCompatActivity() {
             }
             mapStyle = it
             mapView.location
+
+
         }
     }
 
@@ -186,7 +195,7 @@ class MapActivity : AppCompatActivity() {
 //Title : Annotation documentation
 //Author: "Mapbox"
 //URL: "https://docs.mapbox.com/android/maps/guides/annotations/annotations/"
-    private fun addAnnotationToMap(lon : Double?, lat : Double?) {
+    private fun addAnnotationToMap(lon : Double?, lat : Double?, comName : String?, howMany : Int?, obsDt : String?) {
 
         bitmapFromDrawableRes(
             this@MapActivity,
@@ -194,91 +203,135 @@ class MapActivity : AppCompatActivity() {
         )?.let {
             val annotationApi = mapView?.annotations
             val pointAnnotationManager = annotationApi?.createPointAnnotationManager(mapView!!)
-
+            var clickCount = 0
             pointAnnotationManager?.addClickListener(object : OnPointAnnotationClickListener {
                 override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
                     Log.i("clicked", "$lon,$lat")
+                    clickCount++
 
+                    when (clickCount) {
+                        1 -> {
+                            instructions.clear()
+                            val viewAnnotationManager = mapView.viewAnnotationManager
+                            viewAnnotationManager.removeAllViewAnnotations()
+                            val viewAnnotation = viewAnnotationManager.addViewAnnotation(
+                                resId = R.layout.item_callout_view,
+                                options = viewAnnotationOptions {
+                                    geometry(Point.fromLngLat(lon!!, lat!!))
+                                    visible(true)
 
-                    val origin = Point.fromLngLat(currentPosition.lon, currentPosition.lat)
-                    val destination = Point.fromLngLat(lon!!, lat!!)
-                    val coordinates = "${origin.longitude()},${origin.latitude()}%3B${destination.longitude()},${destination.latitude()}"
-
-                    val mapBoxService = DirectionsClient.retrofit.create(DirectionsApi::class.java)
-
-                    val apiCall = mapBoxService.getData(
-                        coordinates = coordinates,
-                        alternatives = true,
-                        geometries = "geojson",
-                        overview = "full",
-                        steps = true,
-                        language = "en",
-                        access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
-
-                    apiCall.enqueue(object : Callback<DirectionsResponse> {
-                        override fun onResponse (
-                            call: Call<DirectionsResponse>,
-                            response: Response<DirectionsResponse>
-                        ) {
-                            if (response.isSuccessful) {
-                                val route: Routes? = response.body()?.routes?.firstOrNull()
-                                if (route != null) {
-                                    route.legs.forEach{
-                                        it.steps.forEach{
-                                            Log.i("instruction", it.maneuver!!.instruction!!)
-                                        }
-                                    }
-                                    val coordinates = route.geometry!!.coordinates.map { Point.fromLngLat(it[0], it[1]) }
-                                    val geometry = LineString.fromLngLats(coordinates)
-                                    val routeFeature = Feature.fromGeometry(geometry)
-                                    val featureCollection =
-                                        FeatureCollection.fromFeatures(listOf(routeFeature))
-
-                                    val source = mapStyle.getSourceAs<GeoJsonSource>("route-source")
-                                    if (source != null) {
-                                        source.featureCollection(featureCollection)
-                                    } else {
-                                        val sourceBuilder = GeoJsonSource.Builder("route-source")
-                                            .featureCollection(featureCollection)
-                                        mapStyle.addSource(sourceBuilder.build())
-
-                                        val lineLayer = lineLayer(
-                                            "route-layer", "route-source") {
-                                            lineCap(LineCap.ROUND)
-                                            lineJoin(LineJoin.ROUND)
-                                            lineColor(Color.parseColor("#f20000"))
-                                            lineWidth(5.0)
-                                        }
-                                        mapStyle.addLayer(lineLayer)
-                                    }
-
-                                } else {
-                                    Log.e("route data", "No route available")
                                 }
+                            )
+
+                            val origin = Point.fromLngLat(currentPosition.lon, currentPosition.lat)
+                            val destination = Point.fromLngLat(lon!!, lat!!)
+                            val coordinates = "${origin.longitude()},${origin.latitude()}%3B${destination.longitude()},${destination.latitude()}"
+
+                            val mapBoxService = DirectionsClient.retrofit.create(DirectionsApi::class.java)
+
+                            val apiCall = mapBoxService.getData(
+                                coordinates = coordinates,
+                                alternatives = true,
+                                geometries = "geojson",
+                                overview = "full",
+                                steps = true,
+                                language = "en",
+                                access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
+
+                            apiCall.enqueue(object : Callback<DirectionsResponse> {
+                                override fun onResponse (
+                                    call: Call<DirectionsResponse>,
+                                    response: Response<DirectionsResponse>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val route: Routes? = response.body()?.routes?.firstOrNull()
+                                        if (route != null) {
+                                            route.legs.forEach{
+                                                it.steps.forEach{
+                                                    Log.i("instruction", it.maneuver!!.instruction!!)
+                                                    instructions.add(it.maneuver!!.instruction!!)
+                                                }
+                                            }
+                                            val coordinates = route.geometry!!.coordinates.map { Point.fromLngLat(it[0], it[1]) }
+                                            val geometry = LineString.fromLngLats(coordinates)
+                                            val routeFeature = Feature.fromGeometry(geometry)
+                                            val featureCollection =
+                                                FeatureCollection.fromFeatures(listOf(routeFeature))
+
+                                            val source = mapStyle.getSourceAs<GeoJsonSource>("route-source")
+                                            if (source != null) {
+                                                source.featureCollection(featureCollection)
+                                            } else {
+                                                val sourceBuilder = GeoJsonSource.Builder("route-source")
+                                                    .featureCollection(featureCollection)
+                                                mapStyle.addSource(sourceBuilder.build())
+
+                                                val lineLayer = lineLayer(
+                                                    "route-layer", "route-source") {
+                                                    lineCap(LineCap.ROUND)
+                                                    lineJoin(LineJoin.ROUND)
+                                                    lineColor(Color.parseColor("#f20000"))
+                                                    lineWidth(5.0)
+                                                }
+                                                mapStyle.addLayer(lineLayer)
+                                            }
+
+                                        } else {
+                                            Log.e("route data", "No route available")
+                                        }
+
+
+                                    }
+                                    else{
+                                        Log.e("bad req", response.message())
+                                    }
+
+                                }
+
+                                override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
+                                    Log.e("API error", "Network error: ${t.message}", t)
+                                }
+                            })
+
+                        }
+                        2 -> {
+                            setContentView(R.layout.item_callout_view)
+                            val btnHs = findViewById<Button>(R.id.btnHotspotDetails)
+                            val btnDirections = findViewById<Button>(R.id.btnDirections)
+
+                            btnHs.setOnClickListener(){
+                                Log.i("btnHs","clicked")
+                                val intent = Intent(context, ViewAnnotationActivity::class.java)
+                                intent.putExtra("lat", lat)
+                                intent.putExtra("lon", lon)
+                                intent.putExtra("comName", comName)
+                                intent.putExtra("howMany", howMany)
+                                intent.putExtra("obsDt", obsDt)
+
+                                startActivity(intent)
                             }
-                            else{
-                                Log.e("bad req", response.message())
+                            btnDirections.setOnClickListener(){
+                                Log.i("btnDirections","clicked")
+
+                                val intent = Intent(context, ViewDirectionsActivity::class.java)
+                                intent.putStringArrayListExtra("instructionsList", ArrayList(instructions))
+                                startActivity(intent)
                             }
                         }
 
-                        override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
-                            Log.e("API error", "Network error: ${t.message}", t)
-                        }
-                    })
+                    }
 
                     return true
 
                 }
             })
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
-
                 .withPoint(Point.fromLngLat(lon!!, lat!!))
-
                 .withIconImage(it)
 
-                pointAnnotationManager?.create(pointAnnotationOptions)
+            pointAnnotationManager?.create(pointAnnotationOptions)
 
-
+            Log.i("fId", pointAnnotationManager?.create(pointAnnotationOptions)!!.featureIdentifier)
         }
     }
 
@@ -290,74 +343,123 @@ class MapActivity : AppCompatActivity() {
         )?.let {
             val annotationApi = mapView?.annotations
             val pointAnnotationManager = annotationApi?.createPointAnnotationManager(mapView!!)
-
+            var clickCount = 0
             pointAnnotationManager?.addClickListener(object : OnPointAnnotationClickListener {
                 override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
                     Log.i("clicked", "$lon,$lat")
 
-                    val origin = Point.fromLngLat(currentPosition.lon, currentPosition.lat)
-                    val destination = Point.fromLngLat(lon!!, lat!!)
-                    val coordinates = "${origin.longitude()},${origin.latitude()}%3B${destination.longitude()},${destination.latitude()}"
+                    clickCount++
 
-                    val mapBoxService = DirectionsClient.retrofit.create(DirectionsApi::class.java)
+                    when (clickCount) {
+                        1 -> {
+                            instructions.clear()
+                            val viewAnnotationManager = mapView.viewAnnotationManager
+                            viewAnnotationManager.removeAllViewAnnotations()
+                            val viewAnnotation = viewAnnotationManager.addViewAnnotation(
+                                resId = R.layout.item_callout_view,
+                                options = viewAnnotationOptions {
+                                    geometry(Point.fromLngLat(lon!!, lat!!))
+                                    visible(true)
 
-                    val apiCall = mapBoxService.getData(
-                        coordinates = coordinates,
-                        alternatives = true,
-                        geometries = "geojson",
-                        overview = "full",
-                        steps = true,
-                        language = "en",
-                        access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
+                                }
+                            )
 
-                    apiCall.enqueue(object : Callback<DirectionsResponse> {
-                        override fun onResponse (
-                            call: Call<DirectionsResponse>,
-                            response: Response<DirectionsResponse>
-                        ) {
-                            if (response.isSuccessful) {
-                                val route: Routes? = response.body()?.routes?.firstOrNull()
-                                if (route != null) {
+                            val origin = Point.fromLngLat(currentPosition.lon, currentPosition.lat)
+                            val destination = Point.fromLngLat(lon!!, lat!!)
+                            val coordinates = "${origin.longitude()},${origin.latitude()}%3B${destination.longitude()},${destination.latitude()}"
 
-                                    val coordinates = route.geometry!!.coordinates.map { Point.fromLngLat(it[0], it[1]) }
-                                    val geometry = LineString.fromLngLats(coordinates)
-                                    val routeFeature = Feature.fromGeometry(geometry)
-                                    val featureCollection =
-                                        FeatureCollection.fromFeatures(listOf(routeFeature))
+                            val mapBoxService = DirectionsClient.retrofit.create(DirectionsApi::class.java)
 
-                                    val source = mapStyle.getSourceAs<GeoJsonSource>("route-source1")
-                                    if (source != null) {
-                                        source.featureCollection(featureCollection)
-                                    } else {
-                                        val sourceBuilder = GeoJsonSource.Builder("route-source1")
-                                            .featureCollection(featureCollection)
-                                        mapStyle.addSource(sourceBuilder.build())
+                            val apiCall = mapBoxService.getData(
+                                coordinates = coordinates,
+                                alternatives = true,
+                                geometries = "geojson",
+                                overview = "full",
+                                steps = true,
+                                language = "en",
+                                access_token = "sk.eyJ1IjoicGFwaWxvMSIsImEiOiJjbG53NW9qaWEwNzF3MnRvNjM1Z2xsYTJ1In0.hkYoZC6PIRC6JO3Hy1dT3w")
 
-                                        val lineLayer = lineLayer(
-                                            "route-layer2", "route-source1") {
-                                            lineCap(LineCap.ROUND)
-                                            lineJoin(LineJoin.ROUND)
-                                            lineColor(Color.parseColor("#00AAFF"))
-                                            lineWidth(5.0)
+                            apiCall.enqueue(object : Callback<DirectionsResponse> {
+                                override fun onResponse (
+                                    call: Call<DirectionsResponse>,
+                                    response: Response<DirectionsResponse>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val route: Routes? = response.body()?.routes?.firstOrNull()
+                                        if (route != null) {
+                                            route.legs.forEach{
+                                                it.steps.forEach{
+                                                    Log.i("instruction", it.maneuver!!.instruction!!)
+                                                    instructions.add(it.maneuver!!.instruction!!)
+                                                }
+                                            }
+                                            val coordinates = route.geometry!!.coordinates.map { Point.fromLngLat(it[0], it[1]) }
+                                            val geometry = LineString.fromLngLats(coordinates)
+                                            val routeFeature = Feature.fromGeometry(geometry)
+                                            val featureCollection =
+                                                FeatureCollection.fromFeatures(listOf(routeFeature))
+
+                                            val source = mapStyle.getSourceAs<GeoJsonSource>("route-source")
+                                            if (source != null) {
+                                                source.featureCollection(featureCollection)
+                                            } else {
+                                                val sourceBuilder = GeoJsonSource.Builder("route-source")
+                                                    .featureCollection(featureCollection)
+                                                mapStyle.addSource(sourceBuilder.build())
+
+                                                val lineLayer = lineLayer(
+                                                    "route-layer", "route-source") {
+                                                    lineCap(LineCap.ROUND)
+                                                    lineJoin(LineJoin.ROUND)
+                                                    lineColor(Color.parseColor("#f20000"))
+                                                    lineWidth(5.0)
+                                                }
+                                                mapStyle.addLayer(lineLayer)
+                                            }
+
+                                        } else {
+                                            Log.e("route data", "No route available")
                                         }
-                                        mapStyle.addLayer(lineLayer)
+
+
+                                    }
+                                    else{
+                                        Log.e("bad req", response.message())
                                     }
 
-                                } else {
-                                    Log.e("route data", "No route available")
                                 }
+
+                                override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
+                                    Log.e("API error", "Network error: ${t.message}", t)
+                                }
+                            })
+
+                        }
+                        2 -> {
+                            setContentView(R.layout.item_callout_view)
+                            val btnHs = findViewById<Button>(R.id.btnHotspotDetails)
+                            val btnDirections = findViewById<Button>(R.id.btnDirections)
+
+                            btnHs.setOnClickListener(){
+                                Log.i("btnHs","clicked")
+                                val intent = Intent(context, ViewAnnotationActivity::class.java)
+                                intent.putExtra("lat", lat)
+                                intent.putExtra("lon", lon)
+                                startActivity(intent)
                             }
-                            else{
-                                Log.e("bad req", response.message())
+                            btnDirections.setOnClickListener(){
+                                Log.i("btnDirections","clicked")
+
+                                val intent = Intent(context, ViewDirectionsActivity::class.java)
+                                intent.putStringArrayListExtra("instructionsList", ArrayList(instructions))
+                                startActivity(intent)
                             }
                         }
 
-                        override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
-                            Log.e("API error", "Network error: ${t.message}", t)
-                        }
-                    })
+                    }
 
                     return true
+
                 }
             })
             val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()

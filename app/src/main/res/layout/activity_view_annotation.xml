@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewAnnotationActivity">
+
+    <TextView
+        android:id="@+id/tvObservations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:text="Hotspot Details"
+        android:textColor="@color/blue_wing_watch"
+        android:textSize="39sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDetailsLatLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Latitude:"
+        android:layout_marginTop="60dp"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"/>
+
+    <TextView
+        android:id="@+id/tvDetailsLonLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Longitude:"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsLat"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+         />
+    <TextView
+        android:id="@+id/tvDetailsComNameLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Common name:"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsLon"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"/>
+    <TextView
+        android:id="@+id/tvDetailsHowManyLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="How many:"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsComName"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"/>
+    <TextView
+        android:id="@+id/tvDetailsObsDtLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Observation Date:"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsHowMany"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingRight="10dp"/>
+
+    <TextView
+        android:id="@+id/tvDetailsLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Latitude"
+        android:layout_marginTop="60dp"
+        android:textSize="25sp"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsLatLbl"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tvDetailsLon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Longitude"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsLat"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsLonLbl"
+        android:paddingBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/tvDetailsComName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Common name"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsLon"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsComNameLbl"
+        android:paddingBottom="10dp"/>
+    <TextView
+        android:id="@+id/tvDetailsHowMany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="How many"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsComName"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsHowManyLbl"
+        android:paddingBottom="10dp"/>
+    <TextView
+        android:id="@+id/tvDetailsObsDt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Observation Date"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsHowMany"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsObsDtLbl" />
+</androidx.constraintlayout.widget.ConstraintLayout>

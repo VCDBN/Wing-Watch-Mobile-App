@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     {
         coords.clear()
         list.forEach(){
-            coords.add(HotSpot(it.lng,it.lat))
+            coords.add(HotSpot(it.lng,it.lat,it.comName,it.howMany,it.obsDt))
         }
     }
 
