@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    tools:context=".ViewAnnotationActivity">
+
+    <TextView
+        android:id="@+id/tvObservations"
+        style="@style/TEXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:text="Birding Hotspot"
+        android:textSize="39sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDetailsLatLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingRight="10dp"
+        android:text="Coordinates"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvObservations" />
+
+    <TextView
+        android:id="@+id/tvDetailsComNameLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingRight="10dp"
+        android:text="Common name"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsLon" />
+
+    <TextView
+        android:id="@+id/tvDetailsHowManyLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingRight="10dp"
+        android:text="How many"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsComName" />
+
+    <TextView
+        android:id="@+id/tvDetailsObsDtLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingRight="10dp"
+        android:text="Observation Date"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsHowMany" />
+
+    <TextView
+        android:id="@+id/tvDetailsLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_regular"
+        android:textSize="19sp"
+        android:text="Latitude"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailsLatLbl"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsLatLbl" />
+
+    <TextView
+        android:id="@+id/tvDetailsLon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_regular"
+        android:textSize="19sp"
+        android:text="Longitude"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailsLat"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsLat" />
+
+    <TextView
+        android:id="@+id/tvDetailsComName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_regular"
+        android:textSize="19sp"
+        android:text="Common name"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsComNameLbl"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailsComNameLbl"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsComNameLbl" />
+
+    <TextView
+        android:id="@+id/tvDetailsHowMany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_regular"
+        android:textSize="19sp"
+        android:text="How many"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsHowManyLbl"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailsHowManyLbl"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsHowManyLbl" />
+
+    <TextView
+        android:id="@+id/tvDetailsObsDt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_regular"
+        android:textSize="19sp"
+        android:text="Observation Date"
+        app:layout_constraintLeft_toRightOf="@+id/tvDetailsObsDtLbl"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailsObsDtLbl"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsObsDtLbl" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnGoToDirections"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/active_button"
+        android:drawableStart="@drawable/baseline_map_24"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="60dp"
+        android:text="Directions"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsObsDt"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

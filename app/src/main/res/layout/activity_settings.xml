@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="40dp"
@@ -9,22 +12,23 @@
 
     <TextView
         android:id="@+id/tvSettings"
+        style="@style/TEXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sourcesanspro_bold"
-        android:textColor="@color/blue_wing_watch"
         android:text="Settings"
-        android:textSize="50sp"
+        android:textSize="39sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switchUnitType"
+        android:id="@+id/swUnit"
         android:layout_width="wrap_content"
         android:thumbTint="@color/blue_wing_watch"
         android:layout_height="50dp"
         android:textSize="25sp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:checked="true"
         android:text="Metric"
         android:fontFamily="@font/sourcesanspro_semibold"
@@ -37,8 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_radius"
+        style="them"
         android:fontFamily="@font/sourcesanspro_semibold"
-        android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/npRadius"
         app:layout_constraintEnd_toStartOf="@+id/npRadius"
@@ -54,20 +58,36 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
+        android:defaultFocusHighlightEnabled="false"
         android:gravity="center"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvRadius"
-        app:layout_constraintTop_toBottomOf="@+id/switchUnitType" />
+        app:layout_constraintTop_toBottomOf="@+id/swUnit" />
+
+    <Switch
+        android:id="@+id/swDarkMode"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:checked="true"
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="Dark Mode"
+        android:textSize="25sp"
+        android:layout_marginTop="40dp"
+        android:thumbTint="@color/blue_wing_watch"
+        app:layout_constraintStart_toStartOf="@+id/tvRadius"
+        app:layout_constraintTop_toBottomOf="@+id/npRadius"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnApplySettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/apply"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="10dp"
         android:background="@drawable/active_button"
         android:fontFamily="@font/sourcesanspro_bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/apply"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="25sp"
@@ -75,6 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/npRadius" />
+        app:layout_constraintTop_toBottomOf="@+id/swDarkMode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

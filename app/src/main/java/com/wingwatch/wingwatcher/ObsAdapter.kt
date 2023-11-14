@@ -21,10 +21,10 @@ class ObsAdapter(
         val obs = obsList[position]
         val helperClass = HelperClass
         holder.tvSpecies.text = obs.species
-        holder.tvNumber.text = obs.number
+        holder.tvNumber.text = obs.count
         holder.tvDate.text = obs.date
-        holder.tvLat.text = obs.lat
-        holder.tvLon.text = obs.lon
+        holder.tvLat.text = obs.lat.toString()
+        holder.tvLon.text = obs.lon.toString()
         holder.tvDate.text = helperClass.getPrettyDate(obs.date!!)
         holder.bind(obs)
     }

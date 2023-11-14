@@ -19,10 +19,10 @@
         <ImageView
             android:id="@+id/imgLogo"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:contentDescription="WINGWATCHER"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/wingwatcher_logo" />
+            app:srcCompat="@drawable/wingwatch_logo" />
 
         <TextView
             android:id="@+id/tvRegisterWingWatcher"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="Create Account"
-            android:fontFamily="@font/sourcesanspro_regular"
+            android:fontFamily="@font/sourcesanspro_semibold"
             android:textAlignment="center"
             android:textSize="33sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -161,8 +161,8 @@
             android:layout_marginEnd="25dp"
             android:fontFamily="@font/sourcesanspro_bold"
             android:text="log in"
-            android:textColor="@color/blue_wing_watch"
-            android:textSize="27sp"
+            style="@style/TEXT"
+            android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/lytRegisterConfirmPassword"
             app:layout_constraintHorizontal_bias="0.5"

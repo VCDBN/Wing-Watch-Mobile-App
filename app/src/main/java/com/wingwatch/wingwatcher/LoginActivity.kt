@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+//Login code from Chrono App by Jishen Harilal
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 

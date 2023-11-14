@@ -18,8 +18,11 @@
     <color name="green_farm_central">#00CC00</color>
     <color name="green_border">#66CC00</color>
     <color name="grey_border">#E6E6E6</color>
-    <color name="blue_wing_watch">#000066</color>
+    <color name="blue_wing_watch">#222288</color>
+    <color name="blue_wing_watch_night">#0033BB</color>
     <color name="font_grey">#808080</color>
     <color name="B2_grey">#B2B2B2</color>
     <color name="white">#FFFFFF</color>
+    <color name="yellow">#FFAA00</color>
+
 </resources>

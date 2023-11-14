@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        HelperClass.loadSettings()
+        HelperClass.updateObsList()
         coordinatesProvider = CoordinatesProvider(this)
 
         if (coordinatesProvider.checkLocationPermission()) {
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         fetchDataFromeBirdApi()
 
 
-        val btnMap = findViewById<Button>(R.id.btnMap)
+        val btnMap = findViewById<Button>(R.id.btnAddObs)
 
         btnMap.setOnClickListener(){
             val intent = Intent(this, MapActivity::class.java)
@@ -92,9 +94,9 @@ class MainActivity : AppCompatActivity() {
             finishAffinity()
         }
 
-        val btnAddObs = findViewById<Button>(R.id.btnAddObs)
+        val btnAddObs = findViewById<Button>(R.id.btnObs)
         btnAddObs.setOnClickListener(){
-            val intent = Intent(this, AddObsActivity::class.java)
+            val intent = Intent(this, ObservationsActivity::class.java)
             startActivity(intent)
         }
 
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     {
         coords.clear()
         list.forEach(){
-            coords.add(HotSpot(it.lng,it.lat))
+            coords.add(HotSpot(it.lng,it.lat,it.comName,it.howMany,it.obsDt))
         }
     }
 

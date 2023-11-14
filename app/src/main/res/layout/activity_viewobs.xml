@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+
+        <ImageView
+            android:id="@+id/imgObs"
+            android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:background="@color/darker_grey"
+            android:contentDescription="Observation Image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/placeholder"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="July 10, 2023"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgObs" />
+
+        <TextView
+            android:id="@+id/tvImageHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:layout_marginStart="10dp"
+            android:paddingHorizontal="2dp"
+            android:text="click to zoom"
+            android:textStyle="italic"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/imgObs"
+            app:layout_constraintTop_toBottomOf="@+id/imgObs" />
+
+
+        <LinearLayout
+            android:id="@+id/lytObsDetails"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.262"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate">
+
+            <TextView
+                android:id="@+id/tvSpeciesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="55dp"
+                android:layout_marginTop="25dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/sourcesanspro_bold"
+                android:text="Bird Species"
+                android:textSize="20sp"
+                app:drawableTint="@color/font_grey" />
+
+            <TextView
+                android:id="@+id/tvBirdSpecies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="55dp"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="Blue Jay"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/tvCountTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="55dp"
+                android:layout_marginTop="25dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/sourcesanspro_bold"
+                android:text="Count"
+                android:textSize="20sp"
+                app:drawableTint="@color/font_grey" />
+
+            <TextView
+                android:id="@+id/tvCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="55dp"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="12"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/tvCordsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="55dp"
+                android:layout_marginTop="25dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/sourcesanspro_bold"
+                android:text="Coordinates"
+                android:textSize="20sp"
+                app:drawableTint="@color/font_grey" />
+
+            <TextView
+                android:id="@+id/tvLon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="55dp"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="-28.982343"
+                android:textSize="19sp" />
+            <TextView
+                android:id="@+id/tvLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="55dp"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="31.0837993"
+                android:textSize="19sp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnShowDirections"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/active_button"
+            android:drawableStart="@drawable/baseline_map_24"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Directions"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lytObsDetails"
+            app:layout_constraintVertical_chainStyle="packed" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
